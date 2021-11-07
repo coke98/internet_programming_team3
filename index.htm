@@ -13,10 +13,10 @@
 	<script>
 
 		// 전국 경찰서, 지구대, 파출소 API
-		const policeApiKey ="DdC8tvJbN2Nkrf6SVd9ET4iq6Jx9wZJl%2Bjkuh5LW1rt3x45SAz1DR3k4Wky0SZEAovsAWIgb%2FWV20TNVs21QQA%3D%3D"
-		const policeUrl = 'https://api.odcloud.kr/api/15054711/v1/uddi:f038d752-ff35-4a22-a2c2-cf9b90de7a30?page=1&perPage=2264&serviceKey='+policeApiKey;
-		
-		// 카카오 내비 API - cors 문제로 웹사이트자체에서는 내비API사용을 못합니다.. 우선 대안으로 미들 서버(cors-jhs.herokuapp.com)를 개설하고 우회해서 사용했습니다.
+		const policeApiKey = "DdC8tvJbN2Nkrf6SVd9ET4iq6Jx9wZJl%2Bjkuh5LW1rt3x45SAz1DR3k4Wky0SZEAovsAWIgb%2FWV20TNVs21QQA%3D%3D"
+		const policeUrl = 'https://api.odcloud.kr/api/15054711/v1/uddi:f038d752-ff35-4a22-a2c2-cf9b90de7a30?page=1&perPage=2264&serviceKey=' + policeApiKey;
+
+		// 카카오 내비 API - cors 문제로 웹사이트 자체에서는 내비API사용을 못합니다.. 우선 대안으로 미들 서버(cors-jhs.herokuapp.com)를 개설하고 우회해서 사용했습니다.
 		const naviApiKey = "652eb2f470dd8a724c80ae923ab44f6e";
 		const naviUrl = "https://cors-jhs.herokuapp.com/https://apis-navi.kakaomobility.com/v1/directions?priority=RECOMMEND&car_type=1&origin=129.1049204111099%2C+35.13367784973298&destination=129.09162466048417%2C+35.11736284697083"
 
@@ -34,6 +34,8 @@
 			minLevel: 7, // 클러스터 할 최소 지도 레벨
 		});
 
+		getLocation();
+
 
 		// 마커 정보창 끄고 닫기 함수
 		function mouseOverListener(map, marker, infoWindow) {
@@ -47,6 +49,28 @@
 			};
 		}
 
+		// 현재 위치 불러오기
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function (position) {
+					var lat = position.coords.latitude;
+					var lng = position.coords.longitude;
+					var latlng = new kakao.maps.LatLng(lat, lng);
+					map.setCenter(latlng);
+					var marker = new kakao.maps.Marker({
+						position: latlng
+					});
+					marker.setMap(map);
+					var infowindow = new kakao.maps.InfoWindow({
+						position : latlng, 
+						content : "현재위치" 
+					});
+  					infowindow.open(map, marker); 
+				});
+			} else {
+				alert("위치정보를 사용할 수 없습니다.");
+			}
+		}
 
 		// 경로 그리기 함수
 		function drawLinePath(r) {
@@ -76,7 +100,7 @@
 		// 카카오 내비API 호출
 		fetch(naviUrl, {
 			headers: {
-				Authorization: "KakaoAK "+ naviApiKey
+				Authorization: "KakaoAK " + naviApiKey
 			}
 		})
 			.then(res => res.json())
