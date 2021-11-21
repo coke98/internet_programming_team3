@@ -11,7 +11,7 @@ function getCCTV() {
         imgSize = new kakao.maps.Size(60, 60), 
         imgOption = {offset: new kakao.maps.Point(30, 10)}; 
         
-    fetch("http://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=" + serviceKey_CCTV + "&numOfRows=100&type=json&institutionNm=" + insttNm_CCTV1)
+    fetch("https://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=" + serviceKey_CCTV + "&numOfRows=100&type=json&institutionNm=" + insttNm_CCTV1)
         .then((res) => res.json())
         .then((resJson) => {
             var markers = [];
@@ -36,7 +36,7 @@ function getCCTV() {
             }
             clusterer.addMarkers(markers);
         })
-    fetch("http://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=" + serviceKey_CCTV + "&numOfRows=100&type=json&institutionNm=" + insttNm_CCTV2)
+    fetch("https://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=" + serviceKey_CCTV + "&numOfRows=100&type=json&institutionNm=" + insttNm_CCTV2)
         .then((res) => res.json())
         .then((resJson) => {
             var markers = [];
