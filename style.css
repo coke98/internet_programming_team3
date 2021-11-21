@@ -26,7 +26,7 @@
     border: none;
 }
 
-.menu {
+.sidebar {
     position: absolute;
     top: 70px;
     left: 30px;
@@ -90,7 +90,7 @@
     height: 90vh;
 }
 
-#menu_wrap {
+#sidebar_wrap {
     position: absolute;
     top: 0;
     left: 0;
@@ -109,22 +109,28 @@
     background: #fff;
 }
 
-#menu_wrap hr {
+#sidebar_wrap hr {
     height: 1px;
     border: 0;
     border-top: 2px solid #5F5F5F;
     margin: 3px 0;
 }
 
-#menu_wrap .option {
+#sidebar_wrap .option {
     text-align: center;
 }
 
-#menu_wrap .option button {
+#sidebar_wrap .option button {
     margin-left: 5px;
 }
 
-#menu_close {
+#sidebar_close {
     margin-left: 20px;
     font-size: 1.5em;
+    cursor: pointer;
+}
+#sidebar_close img{
+    margin-bottom: -7px;
+    width: 20px;
+    height: 27px;
 }

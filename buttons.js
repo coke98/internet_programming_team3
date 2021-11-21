@@ -1,11 +1,11 @@
 // 사이드바 on, off
-function menu_wrap_on() {
-    var menu_wrap = document.getElementById("menu_wrap");
-    menu_wrap.style.display = "block";
+function sidebar_wrap_on() {
+    var sidebar_wrap = document.getElementById("sidebar_wrap");
+    sidebar_wrap.style.display = "block";
 }
-function menu_wrap_off() {
-    var menu_wrap = document.getElementById("menu_wrap");
-    menu_wrap.style.display = "none";
+function sidebar_wrap_off() {
+    var sidebar_wrap = document.getElementById("sidebar_wrap");
+    sidebar_wrap.style.display = "none";
 }
 
 // 지도 확대, 축소

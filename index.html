@@ -26,8 +26,8 @@
 	</div>
 
 	<!-- 사이드 바 on 버튼 -->
-	<div class="custom_control menu radius_border">
-		<span onclick="menu_wrap_on()">
+	<div class="custom_control sidebar radius_border">
+		<span onclick="sidebar_wrap_on()">
 			<p>길찾기</p>
 		</span>
 	</div>
@@ -47,12 +47,12 @@
     </div>
 
 	<!-- 사이드 바 -->
-	<div id="menu_wrap" class="bg_white">
+	<div id="sidebar_wrap" class="bg_white">
 		<div class="option">
 			<form>
 				장소명 : <input type="text" value="부경대학교" id="keyword" size="15">
 				<button type="submit">검색하기</button>
-				<span id="menu_close" onclick="menu_wrap_off()">X</span>
+				<span id="sidebar_close" onclick="sidebar_wrap_off()"><img src="assets/close.png" alt="닫기"></span>
 			</form>
 		</div>
 		<hr>
@@ -79,6 +79,7 @@
 		var current_location_marker; // 현재위치 마커
 
 		pedestrian_route(start, end, map);
+		getEmergencyBell();
 		getCCTV();
 
 
