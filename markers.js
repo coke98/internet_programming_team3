@@ -1,4 +1,5 @@
-//-----------------------------------------------------------CCTV
+//-----------------------------------------------------------------------------
+//-------------------------------------------------------------------------CCTV
 var serviceKey_CCTV = "Jo1AQOE7RUfRc1B3Fht8golmSCwwMUfudzPV9355fMjSZwkGh0N3AL2IFLM7ER73nlcOID4V%2FxJK3mOmCDv5YA%3D%3D";
 var insttNm_CCTV1 = "부산광역시%20재난현장관리과"
 var insttNm_CCTV2 = "부산광역시%20남구청"
@@ -8,7 +9,7 @@ var insttNm_CCTV2 = "부산광역시%20남구청"
 function getCCTV() {
     var imgSrc = 'assets/cctv.png', 
         //마커 이미지의 크기
-        imgSize = new kakao.maps.Size(60, 60), 
+        imgSize = new kakao.maps.Size(40, 40), 
         imgOption = {offset: new kakao.maps.Point(30, 10)}; 
         
     fetch("https://cors-jhs.herokuapp.com/http://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=" + serviceKey_CCTV + "&numOfRows=100&type=json&institutionNm=" + insttNm_CCTV1)
@@ -63,17 +64,15 @@ function getCCTV() {
         })
 }
 
-
-//-----------------------------------------------------------비상벨
+//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------비상벨
 var serviceKey_emergencyBell = 'i0omZLilsWQxFd3kY5EnR0GjiK1v%2BbymoppTqZykRtT9hRyM4QCxVyW4gcV%2BczyPKQSAH17efFCAbzELgv0wDA%3D%3D';
-//비상벨 이미지
-
-
 
 function getEmergencyBell(){
+    //비상벨 이미지
     var imgSrc = 'assets/emergencyBell.png', 
         //마커 이미지의 크기
-        imgSize = new kakao.maps.Size(60, 60), 
+        imgSize = new kakao.maps.Size(40, 40), 
         //마커 이미지의 옵션, 손가락 끝이 해당 좌표를 가리키도록 위치시켰습니다. 
         imgOption = {offset: new kakao.maps.Point(30, 10)}; 
 
@@ -175,4 +174,55 @@ function mouseOutListener(infoWindow) {
     return function () {
         infoWindow.close();
     };
+}
+
+//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------경찰서
+
+// 전국 경찰서, 지구대, 파출소 API
+const policeApiKey ="DdC8tvJbN2Nkrf6SVd9ET4iq6Jx9wZJl%2Bjkuh5LW1rt3x45SAz1DR3k4Wky0SZEAovsAWIgb%2FWV20TNVs21QQA%3D%3D"
+const policeUrl = 'https://api.odcloud.kr/api/15054711/v1/uddi:f038d752-ff35-4a22-a2c2-cf9b90de7a30?page=1&perPage=2264&serviceKey='+policeApiKey;
+function getPolice(){
+    //경찰서 이미지
+    var imgSrc = 'assets/Police.png', 
+        //마커 이미지의 크기
+        imgSize = new kakao.maps.Size(40, 40), 
+        //마커 이미지의 옵션, 손가락 끝이 해당 좌표를 가리키도록 위치시켰습니다. 
+        imgOption = {offset: new kakao.maps.Point(30, 10)}; 
+
+    // 지도에 경찰서 표시
+    fetch(policeUrl)
+    .then((res) => res.json())
+    .then((resJson) => {
+        var markers = [];
+        var centers = resJson.data;
+        for (var i = 0; i < centers.length; i++) { // 경찰서 좌표 가져오기
+            //부산 정보만 가져옴
+            if(centers[i]["청"] != "부산청") continue;
+            var lat = centers[i]["Y좌표"];
+            var lng = centers[i]["X좌표"];
+            
+            //마커의 이미지 정보
+            var markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOption),
+                   markerPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
+
+            var marker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(lat, lng),
+                map: map,
+                image: markerImage,
+            });
+
+            var infoWindow = new kakao.maps.InfoWindow({
+                content: centers[i]["지구대파출소"], // 정보창에 경찰서 이름 표시
+            });
+
+            // 마커 추가
+            markers.push(marker);
+            
+            // 마커 이벤트리스너 등록
+            kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+            kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+        }
+        clusterer.addMarkers(markers);
+    });
 }

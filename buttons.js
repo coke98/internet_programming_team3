@@ -27,8 +27,20 @@ function current_location() {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         var latlng = new kakao.maps.LatLng(lat, lng);
+
+        //gps 이미지
+        var imgSrc = 'assets/gps.png', 
+            //마커 이미지의 크기
+            imgSize = new kakao.maps.Size(40, 42), 
+            imgOption = {offset: new kakao.maps.Point(30, 10)};
+
+        //마커의 이미지 정보
+        var markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOption),
+            markerPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
+
         var marker = new kakao.maps.Marker({
             position: latlng,
+            image: markerImage,
         });
         marker.setMap(map);
         current_location_marker = marker;

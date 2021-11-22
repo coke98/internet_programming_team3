@@ -47,20 +47,26 @@
 	<!-- 사이드 바 -->
 	<nav>
 		<div id="sidebar"> <a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
-			<a href="#" onclick="openSubSidebar_1()" class="menu">길 찾기</a>
-			<a href="#" onclick="openSubSidebar_2()" class="menu">마커 표시</a>
-			<a href="#" class="menu">기타</a>
-			<a href="#" class="menu">등등</a>
+			<div class="contents">
+				<a href="#" onclick="openSubSidebar_1()" >길 찾기</a>
+				<a href="#" onclick="openSubSidebar_2()" >마커 표시</a>
+				<a href="#">기타</a>
+				<a href="#">등등</a>
+			</div>
 		</div>
 		<div id ="subSidebar_1" class ="subSidebar">
-			<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
-			<!-- 길찾기 메뉴 들어갈 부분 -->
-			<p>길찾기</p>
+			<div class="contents">
+				<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
+				<!-- 길찾기 메뉴 들어갈 부분 -->
+				<p>길찾기</p>
+			</div>
 		</div>
 		<div id ="subSidebar_2" class ="subSidebar">
-			<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
-			<!-- 마커 표시 선택 메뉴 들어갈 부분 -->
-			<p>마커 표시 선택</p>
+			<div class="contents">
+				<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
+				<!-- 마커 표시 선택 메뉴 들어갈 부분 -->
+				<p>마커 표시 선택</p>
+			</div>
 		</div>
 		
 	</nav>
@@ -88,6 +94,7 @@
 		pedestrian_route(start, end, map);
 		getEmergencyBell();
 		getCCTV();
+		getPolice();
 
 	</script>
 </body>

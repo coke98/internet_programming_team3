@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+    padding: 0;
+}
 .radius_border {
     border: 1px solid #919191;
     border-radius: 5px;
@@ -115,17 +119,13 @@
     border: 1px solid #919191;
   }
   
-  #sidebar a, .subSidebar a {
+  #sidebar a, .subSidebar a, .subSidebar p{
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: rgb(34, 204, 140);
     display: block;
     transition: 0.3s;
-  }
-
-  #sidebar .menu{
-      width: 250px;
   }
   
   #sidebar a:hover {
@@ -155,3 +155,7 @@
     transition: 0.5s;
     padding-top: 60px;
   }
+
+  .contents{
+    width: 250px;
+}
