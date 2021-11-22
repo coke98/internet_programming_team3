@@ -43,6 +43,7 @@ body {
     cursor: pointer;
     font-size: 30px;
     color:rgb(34, 204, 140);
+    font-family: 'Times New Roman', Times, serif;
 }
 .sidebar_open_btn:hover {
     background:rgb(34, 204, 140);
