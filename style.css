@@ -30,19 +30,32 @@ body {
     border: none;
 }
 
-.sidebar_open_btn span img {
+.sidebar_open_btn {
     position: absolute;
     top: 50px;
     left: 30px;
-    width: 50px;
+    width: 60px;
     height: 50px;
     padding-top: 5px;
+    overflow: hidden;
     z-index: 1;
+    background-color: #f5f5f5;
     cursor: pointer;
-    border: none;
+    font-size: 30px;
+    color:rgb(34, 204, 140);
+    font-family: 'Times New Roman', Times, serif;
+}
+.sidebar_open_btn:hover {
+    background:rgb(34, 204, 140);
+    color: white;
+    transition: 0.3s;
 }
 
-
+.sidebar_open_btn span img {
+    margin-top: 2px;
+    width: 50px;
+    height: 40px;
+}
 
 .zoom_btn span {
     width: 36px;
