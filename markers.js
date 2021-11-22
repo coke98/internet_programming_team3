@@ -184,7 +184,7 @@ const policeApiKey ="DdC8tvJbN2Nkrf6SVd9ET4iq6Jx9wZJl%2Bjkuh5LW1rt3x45SAz1DR3k4W
 const policeUrl = 'https://api.odcloud.kr/api/15054711/v1/uddi:f038d752-ff35-4a22-a2c2-cf9b90de7a30?page=1&perPage=2264&serviceKey='+policeApiKey;
 function getPolice(){
     //경찰서 이미지
-    var imgSrc = 'assets/Police.png', 
+    var imgSrc = 'assets/police.png', 
         //마커 이미지의 크기
         imgSize = new kakao.maps.Size(40, 40), 
         //마커 이미지의 옵션, 손가락 끝이 해당 좌표를 가리키도록 위치시켰습니다. 
