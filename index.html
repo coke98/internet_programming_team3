@@ -3,10 +3,10 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>인터넷프로그래밍 3팀</title>
 	<link rel="stylesheet" href="style.css">
-    <script src="pedestrian_route.js"></script>
+	<script src="pedestrian_route.js"></script>
 	<script src="markers.js"></script>
 	<script src="buttons.js"></script>
 	<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b7144d6b822440c89d5008ebeb3fd17"></script>
@@ -15,48 +15,55 @@
 </head>
 
 <body>
-	<p id="result"></p>
-
 	<div id="map"></div>
 
 	<!-- 현재위치 표시 버튼 -->
-	<div class="custom_control gps radius_border">
+	<div class="custom_control gps_btn radius_border">
 		<span onclick="current_location()"><img
 				src="https://cdn.icon-icons.com/icons2/2248/PNG/512/crosshairs_gps_icon_136721.png" alt="gps"></span>
 	</div>
 
 	<!-- 사이드 바 on 버튼 -->
-	<div class="custom_control sidebar radius_border">
-		<span onclick="sidebar_wrap_on()">
-			<p>길찾기</p>
+	<div class="custom_control sidebar_open_btn radius_border" onclick="openSidebar()">
+		<span>
+			&#9776
 		</span>
 	</div>
 
 	<!-- 지도 확대 축소 버튼 -->
-	<div class="custom_control zoom radius_border">
+	<div class="custom_control zoom_btn radius_border">
 		<span onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png"
 				alt="확대"></span>
 		<span onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png"
 				alt="축소"></span>
 	</div>
 
-    <!-- 사이렌 소리 버튼 -->
-    <div class="custom_control siren radius_border">
-        <span onclick="siren()"><img src="https://cdn-icons-png.flaticon.com/512/763/763421.png" alt="사이렌"></span>
-        <audio id="siren" src="assets/siren.wav"></audio>
-    </div>
+	<!-- 사이렌 소리 버튼 -->
+	<div class="custom_control siren_btn radius_border">
+		<span onclick="siren()"><img src="https://cdn-icons-png.flaticon.com/512/763/763421.png" alt="사이렌"></span>
+		<audio id="siren" src="assets/siren.wav"></audio>
+	</div>
 
 	<!-- 사이드 바 -->
-	<div id="sidebar_wrap" class="bg_white">
-		<div class="option">
-			<form>
-				장소명 : <input type="text" value="부경대학교" id="keyword" size="15">
-				<button type="submit">검색하기</button>
-				<span id="sidebar_close" onclick="sidebar_wrap_off()"><img src="assets/close.png" alt="닫기"></span>
-			</form>
+	<nav>
+		<div id="sidebar"> <a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
+			<a href="#" onclick="openSubSidebar_1()" class="menu">길 찾기</a>
+			<a href="#" onclick="openSubSidebar_2()" class="menu">마커 표시</a>
+			<a href="#" class="menu">기타</a>
+			<a href="#" class="menu">등등</a>
 		</div>
-		<hr>
-	</div>
+		<div id ="subSidebar_1" class ="subSidebar">
+			<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
+			<!-- 길찾기 메뉴 들어갈 부분 -->
+			<p>길찾기</p>
+		</div>
+		<div id ="subSidebar_2" class ="subSidebar">
+			<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
+			<!-- 마커 표시 선택 메뉴 들어갈 부분 -->
+			<p>마커 표시 선택</p>
+		</div>
+		
+	</nav>
 	<script>
 
 		// 출발, 도착 좌표 카카오 맵 객체 생성
@@ -81,7 +88,6 @@
 		pedestrian_route(start, end, map);
 		getEmergencyBell();
 		getCCTV();
-
 
 	</script>
 </body>

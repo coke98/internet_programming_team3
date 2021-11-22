@@ -46,3 +46,63 @@ function siren() {
         siren.pause();
     }
 }
+
+// 사이드바 toggle
+function openSidebar() {
+    document.getElementById("sidebar").style.width = "200px";
+    var subSidebar = document.getElementsByClassName("subSidebar");
+    for (var i = 0; i < subSidebar.length; i++) {
+        document.getElementsByClassName("subSidebar")[i].style.width = "0px";
+    }
+}
+
+// 사이드바 전체 닫기
+function closeSidebar() {
+    var isSubSidebarOpen = false;
+
+    var subSidebar = document.getElementsByClassName("subSidebar");
+    for (var i = 0; i < subSidebar.length; i++) {
+        console.log(subSidebar[i].style.width);
+        if (subSidebar[i].style.width != ("0px"||"")) isSubSidebarOpen = true;
+    }
+
+    console.log(isSubSidebarOpen);
+
+    closeSubSidebar();
+
+    if (isSubSidebarOpen) {
+        setTimeout(function () {
+            document.getElementById("sidebar").style.width = "0";
+        }, 500);
+    }
+    else {
+        document.getElementById("sidebar").style.width = "0";
+    }
+}
+
+// 서브 사이드바 toggle
+function openSubSidebar_1() {
+    document.getElementById("subSidebar_1").style.width = "300px";
+    document.getElementById("subSidebar_1").style.border = "1px solid #919191";
+}
+
+function closeSubSidebar_1() {
+    document.getElementById("subSidebar_1").style.width = "0";
+    document.getElementById("subSidebar_1").style.border = "none";
+}
+
+function openSubSidebar_2() {
+    document.getElementById("subSidebar_2").style.width = "300px";
+    document.getElementById("subSidebar_2").style.border = "1px solid #919191";
+}
+
+function closeSubSidebar_2() {
+    document.getElementById("subSidebar_2").style.width = "0";
+    document.getElementById("subSidebar_2").style.border = "none";
+}
+
+// 서브 사이드바 전체 닫기
+function closeSubSidebar() {
+    closeSubSidebar_1();
+    closeSubSidebar_2();
+}

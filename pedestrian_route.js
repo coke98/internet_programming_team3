@@ -66,7 +66,7 @@ function pedestrian_route(s, e, m) {
             var polyline = new kakao.maps.Polyline({ // 선 그리기 옵션
                 path: linePath,
                 strokeWeight: 5,
-                strokeColor: 'red',
+                strokeColor: 'blue',
                 strokeOpacity: 0.7,
                 strokeStyle: 'solid'
             });
