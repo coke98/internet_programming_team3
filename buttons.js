@@ -59,9 +59,9 @@ function siren() {
     }
 }
 
-// 사이드바 toggle
+// 사이드바 open
 function openSidebar() {
-    document.getElementById("sidebar").style.width = "200px";
+    document.getElementById("sidebar").style.width = "150px";
     var subSidebar = document.getElementsByClassName("subSidebar");
     for (var i = 0; i < subSidebar.length; i++) {
         document.getElementsByClassName("subSidebar")[i].style.width = "0px";
@@ -75,7 +75,7 @@ function closeSidebar() {
     var subSidebar = document.getElementsByClassName("subSidebar");
     for (var i = 0; i < subSidebar.length; i++) {
         console.log(subSidebar[i].style.width);
-        if (subSidebar[i].style.width != ("0px"||"")) isSubSidebarOpen = true;
+        if (subSidebar[i].style.width != ("0px")) isSubSidebarOpen = true;
     }
 
     console.log(isSubSidebarOpen);
