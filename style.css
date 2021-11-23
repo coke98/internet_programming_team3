@@ -165,3 +165,23 @@ body {
   .contents{
     width: 250px;
 }
+
+/* 길찾기 사이드바 */
+.pathsearch{
+    font-size: 16px;
+    width: 300px;
+    height: 50px;
+    margin-left: 30px;
+    border: 1px;
+    float: left;
+  }
+  
+  .searchbutton{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: relative;
+    border: 1px;
+    padding: 0px 0px 0px 0px;
+    margin: -7px 60px 0px 0px;
+  }
