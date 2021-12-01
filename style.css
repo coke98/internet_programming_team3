@@ -57,13 +57,30 @@ body {
     height: 40px;
 }
 
+/*마커 선택 사이드바*/
+#subSidebar_2{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    color:rgb(34, 204, 140);
+}
+/*마커 선택 확인 버튼*/
+#checkbtn {
+    background-color: rgb(34, 204, 140);
+
+    color:#fff;
+ 
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
 .zoom_btn span {
     width: 36px;
     height: 40px;
     text-align: center;
     cursor: pointer;
 }
-
 
 .zoom_btn {
     position: absolute;
@@ -99,6 +116,40 @@ body {
 }
 
 .siren_btn span img {
+    width: 20px;
+    height: 20px;
+    padding: 8px 0;
+    border: none;
+}
+
+.call_btn {
+    position: absolute;
+    top: 270px;
+    right: 30px;
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    z-index: 1;
+    background-color: #f5f5f5;
+}
+.call_btn span img {
+    width: 20px;
+    height: 20px;
+    padding: 8px 0;
+    border: none;
+}
+
+.sms_btn {
+    position: absolute;
+    top: 320px;
+    right: 30px;
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    z-index: 1;
+    background-color: #f5f5f5;
+}
+.sms_btn span img {
     width: 20px;
     height: 20px;
     padding: 8px 0;
@@ -185,3 +236,36 @@ body {
     padding: 0px 0px 0px 0px;
     margin: -7px 60px 0px 0px;
   }
+
+  #intro {
+    /*그라데이션 배경*/
+    font-family: "Jua";
+    background: #114357;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #DEF6CD, #C4F1DF);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #DEF6CD, #C4F1DF);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /*중앙 정렬*/
+    justify-content: center;
+    align-items: center;
+    /* 절대위치 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*아이템들을 세로 방향으로 배치*/
+    flex-direction: column;
+    z-index: 3;
+}
+.title {
+        margin-bottom: 40px;
+        font-size: 5em;
+        color: white;
+    }
+
+
+    
+    

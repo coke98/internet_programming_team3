@@ -59,6 +59,11 @@ function siren() {
     }
 }
 
+// 전화벨 소리
+function call() {
+    location.href = "tel:112";
+}
+
 // 사이드바 open
 function openSidebar() {
     document.getElementById("sidebar").style.width = "135px";
@@ -94,6 +99,7 @@ function closeSidebar() {
 
 // 서브 사이드바 toggle
 function openSubSidebar_1() {
+    closeSubSidebar();
     document.getElementById("subSidebar_1").style.width = "300px";
     document.getElementById("subSidebar_1").style.border = "1px solid #919191";
 }
@@ -104,6 +110,7 @@ function closeSubSidebar_1() {
 }
 
 function openSubSidebar_2() {
+    closeSubSidebar();
     document.getElementById("subSidebar_2").style.width = "300px";
     document.getElementById("subSidebar_2").style.border = "1px solid #919191";
 }
@@ -117,4 +124,56 @@ function closeSubSidebar_2() {
 function closeSubSidebar() {
     closeSubSidebar_1();
     closeSubSidebar_2();
+}
+
+//체크박스 함수
+function checkBox(obj) {
+    var result = obj.value;
+    if (obj.checked) {
+        switch (result) {
+            case "CCTV":
+                getCCTV();
+                break;
+            case "BELL":
+                getEmergencyBell();
+                break;
+            case "POLICE":
+                getPolice();
+                break;
+            case "FIRE":
+                getfireStation();
+                break;
+            case "LAMP":
+                getLamp();
+                break;
+        }
+    } else {
+        switch (result) {
+            case "CCTV":
+                for (var i = 0; i < CCTV_markers.length; i++) {
+                    clusterer.removeMarker(CCTV_markers[i]);
+                }
+                break;
+            case "BELL":
+                for (var i = 0; i < bell_markers.length; i++) {
+                    clusterer.removeMarker(bell_markers[i]);
+                }
+                break;
+            case "POLICE":
+                for (var i = 0; i < police_markers.length; i++) {
+                    clusterer.removeMarker(police_markers[i]);
+                }
+                break;
+            case "FIRE":
+                for (var i = 0; i < fireStation_markers.length; i++) {
+                    clusterer.removeMarker(fireStation_markers[i]);
+                }
+                break;
+            case "LAMP":
+                for (var i = 0; i < lamp_markers.length; i++) {
+                    clusterer.removeMarker(lamp_markers[i]);
+                }
+                break;
+        }
+    }
 }

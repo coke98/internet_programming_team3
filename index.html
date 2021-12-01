@@ -14,39 +14,7 @@
 	<script src="buttons.js"></script>
 	<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b7144d6b822440c89d5008ebeb3fd17"></script>
 	<script
-		src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2530315e93e47fca95bcdf52cafb039d&libraries=clusterer"></script>
-
-	<style>
-		#intro {
-			/*그라데이션 배경*/
-			font-family: "Jua";
-			background: #114357;
-			/* fallback for old browsers */
-			background: -webkit-linear-gradient(to top, #DEF6CD, #C4F1DF);
-			/* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to top, #DEF6CD, #C4F1DF);
-			/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-			width: 100%;
-			height: 100%;
-			display: flex;
-			/*중앙 정렬*/
-			justify-content: center;
-			align-items: center;
-			/* 절대위치 */
-			position: absolute;
-			top: 0;
-			left: 0;
-			/*아이템들을 세로 방향으로 배치*/
-			flex-direction: column;
-			z-index: 3;
-		}
-		.title {
-                margin-bottom: 40px;
-                font-size: 5em;
-                color: white;
-            }
-	
-		</style>
+		src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=7a59eac00d91c8ec4a4034f8afb2411f&libraries=clusterer,services"></script>
 </head>
 
 <body>
@@ -78,6 +46,16 @@
 	<div class="custom_control siren_btn radius_border">
 		<span onclick="siren()"><img src="https://cdn-icons-png.flaticon.com/512/763/763421.png" alt="사이렌"></span>
 		<audio id="siren" src="assets/siren.wav"></audio>
+	</div>
+
+    <!--전화-->
+	<div class="custom_control call_btn radius_border">
+		<span onclick="document.location.href='tel:112'"><img src="https://w7.pngwing.com/pngs/811/53/png-transparent-phone-contact-icon-logo-iphone-computer-icons-telephone-call-phone-icon-electronics-text-grass-thumbnail.png" alt="전화"></span>
+	</div>
+
+	<!--문자-->
+	<div class="custom_control sms_btn radius_border">
+		<span onclick="document.location.href='sms:010-0000-0000?body=안심귀가 서비스 비상문자입니다.'"><img src="https://d29fhpw069ctt2.cloudfront.net/icon/image/38198/preview.svg" alt="문자"></span>
 	</div>
 
 	<!-- 사이드 바 -->
@@ -113,6 +91,18 @@
 							src="https://cdn.discordapp.com/attachments/752108988719562776/912546711619108874/searchbutton.png">
 						</input>
 					</div>
+
+					<!---------------------------------추가된 부분----------------------------------------->
+					<!--마커 선택 버튼-->
+					<div style="float: left">
+						<input type="button" id="checkbtn" onclick="selectMarkers()" value="지도에서 경유할 시설물 마커 선택하기">
+					</div>
+					<div>
+						<p>-</p>
+						<p id="default_route" style="font-size: 15px;">기존 경로 시간, 거리 안내</p>
+						<p id="optional_route"style="font-size: 15px;">추가 경로 시간, 거리 안내</p>
+					</div>
+					
 				</form>
 			</div>
 		</div>
@@ -120,7 +110,16 @@
 			<div class="contents">
 				<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
 				<!-- 마커 표시 선택 메뉴 들어갈 부분 -->
-				<p>마커 표시 선택</p>
+				<form>
+					<ul>
+						<li style="list-style:none"><input type="checkbox" onchange="checkBox(this)" name="CCTV" id="CCTV" value="CCTV" > CCTV</li>
+						<li style="list-style:none"><input type="checkbox" onchange="checkBox(this)" name="BELL" id="BELL" value="BELL"> 비상벨</li>
+						<li style="list-style:none"><input type="checkbox" onchange="checkBox(this)" name="POLICE" id="POLICE" value="POLICE"> 경찰서</li>
+						<li style="list-style:none"><input type="checkbox" onchange="checkBox(this)" name="FIRE" id="FIRE" value="FIRE"> 소방서</li>
+						<li style="list-style:none"><input type="checkbox" onchange="checkBox(this)" name="LAMP" id="LAMP" value="LAMP"> 가로등</li>
+						<li style="list-style:none"><input type="button" id="checkbtn" onclick="closeSidebar()" value="확인"></li>
+					</ul>
+                </form>
 			</div>
 		</div>
 		
@@ -133,7 +132,8 @@
 
 		// 출발, 도착 좌표 카카오 맵 객체 생성
 		var start = new kakao.maps.LatLng(35.13367784973298, 129.1049204111099); // 대연 캠퍼스
-		var end = new kakao.maps.LatLng(35.11736284697083, 129.09162466048417); // 용당 캠퍼스
+		// var end = new kakao.maps.LatLng(35.11736284697083, 129.09162466048417); // 용당 캠퍼스
+		var end = new kakao.maps.LatLng(35.132568, 129.091948); 
 
 		// 지도 표시
 		var mapContainer = document.getElementById("map"); // 지도를 표시할 div
@@ -150,11 +150,8 @@
 
 		var current_location_marker; // 현재위치 마커
 
-		pedestrian_route(start, end, map);
-		getEmergencyBell();
-		getCCTV();
-		getPolice();
-		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
 
 		// 인트로 에니메이션
 
@@ -170,7 +167,134 @@
 			}
 		}, 10);
 		}, 1000);
+
+		// 마커 정보창 끄고 닫기 함수
+		function mouseOverListener(map, marker, infoWindow) {
+			return function () {
+				infoWindow.open(map, marker);
+			};
+		}
+		function mouseOutListener(infoWindow) {
+			return function () {
+				infoWindow.close();
+			};
+		}
+
+		//-------------------------------------------------추가된 부분
+		var CCTV_markers = [];
+		var police_markers = [];
+		var bell_markers = [];
+		var fireStation_markers = [];
+		var lamp_markers = [];
+		var clusterer;
 		
+		var passList = []; // 선택된 마커 위치 리스트
+		var passListString = ""; // 선택된 마커들의 좌표를 담을 문자열
+		var polyline; // 경로(초기화를 위해 전역변수로 선언)
+		var time = 0; // 원래 소요시간
+		var time_pass = 0; // 경유시 소요시간
+		var time_diff = 0; // 원래 시간에서 경유시 시간의 차이
+		var distance = 0; // 원래 거리
+		var distance_pass = 0; // 경유시 거리
+		var distance_diff = 0; // 원래 거리에서 경유시 거리의 차이
+
+		pedestrian_route(start, end, map);
+
+		//마커 선택 버튼 눌렀을 때 함수
+		function selectMarkers(){
+			//사이드바를 내리고
+			closeSidebar();
+			//모든 마커 보이기
+			getCCTV();
+			getEmergencyBell();
+			getPolice();
+			getfireStation();
+			getLamp();
+		}
+
+		//선택 마커 이미지
+		var waypoint_imgSrc = [];
+		var waypoint_markerImage = [];
+		var waypoint_marker = [];
+
+		for(var i=1; i<=5; i++){
+			waypoint_imgSrc[i] = 'assets/'+i+'.png';
+				imgSize = new kakao.maps.Size(45, 50), 
+				imgOption = {offset: new kakao.maps.Point(20, 40)};
+			waypoint_markerImage[i] = new kakao.maps.MarkerImage(waypoint_imgSrc[i], imgSize, imgOption);
+		}
+		
+		function mouseClickListener(check, i, markerPosition, marker){
+			return function(){
+				setWaypoint(check, i, markerPosition, marker);
+            };
+		}
+
+		function setWaypoint(check, i, markerPosition, marker) {
+                    //이미 클릭된 마커면 선택 취소
+                    if(check[i]) {
+                        console.log("마커 선택 취소");
+                        check[i] = false;
+						// passList 에서 markerPosition 과 같은 값을 찾아서 삭제
+						for(var j = 0; j < passList.length; j++) {
+							if(passList[j] == markerPosition) {
+								passList.splice(j, 1);
+								break;
+							}
+						}
+						setWaypointToString();
+						pedestrian_route(start, end, map);
+                        return ;
+                    }
+
+                    if(passList.length == 5){
+                        console.log("5개 이상 선택됨");
+                        return ;
+                    }
+                    else {
+						console.log("마커 선택됨");
+                        check[i] = true;
+						passList.push(markerPosition);
+						insertWayPointMarker(check, i, markerPosition ,marker);
+						setWaypointToString();
+						pedestrian_route(start, end, map);
+                    }
+                }
+		
+
+		function insertWayPointMarker(check, i, markerPosition ,original_marker){
+			var marker = new kakao.maps.Marker({
+				position: markerPosition,
+				map: map,
+				image: waypoint_markerImage[passList.length],
+				clickable: true
+			});
+			waypoint_marker.push(marker);
+			// 경유지 마커 클릭시 삭제
+			kakao.maps.event.addListener(marker, 'click', function() {
+				deleteWaypointMarker(marker);
+				setWaypoint(check, i, markerPosition, original_marker);
+			});
+		}
+
+		function deleteWaypointMarker(marker){
+			marker.setMap(null);
+			var i = waypoint_marker.indexOf(marker);
+			waypoint_marker.splice(i, 1);
+			//해당 marker 뒤 경로 마커들 이미지 당기기
+			for(var j = i; j < waypoint_marker.length; j++){
+				waypoint_marker[j].setImage(waypoint_markerImage[++i]);
+			}
+		}
+
+		function setWaypointToString(){
+			// passList의 경도, 위도는 "," 각 좌표끼리는 _로 구분하여 string으로 변환
+			passListString = "";
+			for (var i = 0; i < passList.length; i++) {
+				passListString += passList[i].La + "," + passList[i].Ma + "_";
+			}
+			passListString = passListString.substring(0, passListString.length - 1);
+		}
 
 	</script>
 </body>

@@ -8,24 +8,14 @@
 
 function pedestrian_route(s, e, m) {
 
-    // 출발지, 도착지 마커 표시
-    var startMarker = new kakao.maps.Marker({
-        map: m,
-        position: s
-    });
-    var endMarker = new kakao.maps.Marker({
-        map: m,
-        position: e
-    });
+    // ----경유지 구현 추가된 부분------
+    // 기존 경로가 있다면 지우기
+    if (polyline != null) {
+        polyline.setMap(null);
+    }
 
-    // fetch를 통해 길찾기 api 호출
-    fetch("https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "appKey": "l7xx7b7144d6b822440c89d5008ebeb3fd17"
-        },
-        body: JSON.stringify({
+    if (passList.length == 0) {
+        var request = JSON.stringify({
             "startX": s.getLng(),
             "startY": s.getLat(),
             "endX": e.getLng(),
@@ -34,24 +24,83 @@ function pedestrian_route(s, e, m) {
             "resCoordType": "WGS84GEO",
             "startName": "출발지",
             "endName": "도착지"
+        });
+    } else {
+        var request = JSON.stringify({
+            "startX": s.getLng(),
+            "startY": s.getLat(),
+            "endX": e.getLng(),
+            "endY": e.getLat(),
+            "passList": passListString,
+            "reqCoordType": "WGS84GEO",
+            "resCoordType": "WGS84GEO",
+            "startName": "출발지",
+            "endName": "도착지"
         })
+    }
+    // ----경유지 구현 추가된 부분------
+
+    // 출발지, 도착지 마커 표시 
+    var startMarker = new kakao.maps.Marker({
+        map: m,
+        position: s
+    });
+    var endMarker = new kakao.maps.Marker({
+        map: m,
+        position: e
+    });
+    //인포윈도우로 출발지, 도착지 정보 표시
+    var startInfoWindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">출발지</div>'
+    });
+    var endInfoWindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">도착지</div>'
+    });
+    kakao.maps.event.addListener(startMarker, 'mouseover', function () {
+        startInfoWindow.open(m, startMarker);
+    });
+    kakao.maps.event.addListener(startMarker, 'mouseout', function () {
+        startInfoWindow.close(m, startMarker);
+    });
+    kakao.maps.event.addListener(endMarker, 'mouseover', function () {
+        endInfoWindow.open(m, endMarker);
+    });
+    kakao.maps.event.addListener(endMarker, 'mouseout', function () {
+        endInfoWindow.close(m, endMarker);
+    });
+    
+    // fetch를 통해 길찾기 api 호출
+    fetch("https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "appKey": "l7xx7b7144d6b822440c89d5008ebeb3fd17"
+        },
+        body: request
     })
     // post 호출 후 결과값을 받아옴
         .then(res => res.json())
         .then(resJson => {
             var linePath = [];
             var features = resJson.features
-
-            // 거리, 시간 출력
-            var tDistance = "총 거리 : " + ((features[0].properties.totalDistance) / 1000).toFixed(1) + "km,";
-            var tTime = " 총 시간 : " + ((features[0].properties.totalTime) / 60).toFixed(0) + "분";
-            //id = result에 tDistance + tTime 출력
-            try {
-                document.getElementById("result").innerHTML = tDistance + tTime;
+            var tDistance = ((features[0].properties.totalDistance) / 1000).toFixed(2);
+            var tTime = ((features[0].properties.totalTime) / 60).toFixed(0);
+            // 거리, 시간 계산
+            
+            if(passList.length == 0){
+            distance = tDistance;
+            time = tTime;
+            console.log( "기존 경로입니다. "+ distance+"km, " + time+"분");
+            // id = "default_route"인 요소의 내용을 변경
+            document.getElementById("default_route").innerHTML = "기존 경로: "+ distance+"km, " + time+"분";
+            document.getElementById("optional_route").innerHTML = "추가 경로: 없음";
+            }else{
+                distance_pass = tDistance;1
+                time_pass = tTime;
+                console.log("추가 거리: " +(distance_pass - distance).toFixed(2)+ "km, 추가 시간: " + (time_pass - time)+ "분");
+                document.getElementById("optional_route").innerHTML = "추가 경로: "+ (distance_pass - distance).toFixed(2)+"km, " + (time_pass - time)+ "분";
             }
-            catch (err) {
-                console.log(err);
-            }
+            
 
             // 경로 좌표 받아오기
             for (var i in features) {
@@ -63,7 +112,7 @@ function pedestrian_route(s, e, m) {
                     }
                 }
             }
-            var polyline = new kakao.maps.Polyline({ // 선 그리기 옵션
+            polyline = new kakao.maps.Polyline({ // 선 그리기 옵션
                 path: linePath,
                 strokeWeight: 5,
                 strokeColor: 'blue',
