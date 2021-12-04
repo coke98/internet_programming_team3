@@ -64,6 +64,18 @@ function call() {
     location.href = "tel:112";
 }
 
+    // buttons.js에 추가
+    // 전화걸기
+    function call() {
+        location.href = "tel:" + document.getElementById("callnumb").value;
+
+    }
+    // 문자 보내기
+    function sms() {
+        location.href = "tel:" + document.getElementById("callnumb").value;
+        location.href = 'sms:' + document.getElementById("smsnumb").value + '?body=' + document.getElementById("smscont").value
+    }
+
 // 사이드바 open
 function openSidebar() {
     document.getElementById("sidebar").style.width = "135px";
@@ -118,6 +130,17 @@ function openSubSidebar_2() {
 function closeSubSidebar_2() {
     document.getElementById("subSidebar_2").style.width = "0";
     document.getElementById("subSidebar_2").style.border = "none";
+}
+
+function openSubSidebar_3() {
+    closeSubSidebar();
+    document.getElementById("subSidebar_3").style.width = "300px";
+    document.getElementById("subSidebar_3").style.border = "1px solid #919191";
+}
+
+function closeSubSidebar_3() {
+    document.getElementById("subSidebar_3").style.width = "0";
+    document.getElementById("subSidebar_3").style.border = "none";
 }
 
 // 서브 사이드바 전체 닫기

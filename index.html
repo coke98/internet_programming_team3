@@ -64,7 +64,7 @@
 			<div class="contents">
 				<a href="#" class="menu" onclick="openSubSidebar_1()" >길 찾기</a>
 				<a href="#" class="menu" onclick="openSubSidebar_2()" >마커 선택</a>
-				<a href="#" class="menu"></a>
+				<a href="#" class="menu" onclick="openSubSidebar_3()"></a>
 				<a href="#" class="menu"></a>
 			</div>
 		</div>
@@ -122,6 +122,37 @@
                 </form>
 			</div>
 		</div>
+		<div id ="subSidebar_3" class ="subSidebar">
+			<div class="contents">
+				<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
+				<!-- 비상 연락처 설정 -->
+				<form class="pathsearch">
+					<div style="float: left; margin-bottom: 5px;">
+						비상전화<br>
+						<img src="https://cdn.discordapp.com/attachments/752108988719562776/912587994039455774/2.png">
+						<input type="tel" 
+								id="callnumb" name="callnumb" 
+								value="112">
+					</div>
+					<div style="float: left; margin-bottom: 5px;">
+						비상문자<br>
+						<img src="https://cdn.discordapp.com/attachments/752108988719562776/912587994039455774/2.png">
+						<input type="tel"
+								id="smsnumb" name="smsnumb" 
+								value="010-0000-0000">
+					</div>
+					<div style="float: left;">
+						문자내용<br>
+						<div style="float: left; margin-right: 5px;">
+							<img src="https://cdn.discordapp.com/attachments/752108988719562776/912587994039455774/2.png">
+						</div>
+						<div style="float: right;">
+							<textarea rows="3" cols="30" id="smscont" name="smscont">안심귀가 서비스 비상문자입니다</textarea>
+						</div>
+					</div>									
+				</form>
+			</div>
+		</div>	
 		
 	</nav>
 	<div id="intro">
