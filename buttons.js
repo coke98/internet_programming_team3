@@ -78,7 +78,7 @@ function call() {
 
 // 사이드바 open
 function openSidebar() {
-    document.getElementById("sidebar").style.width = "135px";
+    document.getElementById("sidebar").style.width = "70px";
     var subSidebar = document.getElementsByClassName("subSidebar");
     for (var i = 0; i < subSidebar.length; i++) {
         document.getElementsByClassName("subSidebar")[i].style.width = "0px";
@@ -91,7 +91,6 @@ function closeSidebar() {
 
     var subSidebar = document.getElementsByClassName("subSidebar");
     for (var i = 0; i < subSidebar.length; i++) {
-        console.log(subSidebar[i].style.width);
         if (subSidebar[i].style.width != ("0px")) isSubSidebarOpen = true;
     }
 
@@ -110,43 +109,18 @@ function closeSidebar() {
 }
 
 // 서브 사이드바 toggle
-function openSubSidebar_1() {
+function openSubSidebar(num) {
     closeSubSidebar();
-    document.getElementById("subSidebar_1").style.width = "300px";
-    document.getElementById("subSidebar_1").style.border = "1px solid #919191";
-}
-
-function closeSubSidebar_1() {
-    document.getElementById("subSidebar_1").style.width = "0";
-    document.getElementById("subSidebar_1").style.border = "none";
-}
-
-function openSubSidebar_2() {
-    closeSubSidebar();
-    document.getElementById("subSidebar_2").style.width = "300px";
-    document.getElementById("subSidebar_2").style.border = "1px solid #919191";
-}
-
-function closeSubSidebar_2() {
-    document.getElementById("subSidebar_2").style.width = "0";
-    document.getElementById("subSidebar_2").style.border = "none";
-}
-
-function openSubSidebar_3() {
-    closeSubSidebar();
-    document.getElementById("subSidebar_3").style.width = "300px";
-    document.getElementById("subSidebar_3").style.border = "1px solid #919191";
-}
-
-function closeSubSidebar_3() {
-    document.getElementById("subSidebar_3").style.width = "0";
-    document.getElementById("subSidebar_3").style.border = "none";
+    document.getElementById("subSidebar_"+num).style.width = "300px";
+    document.getElementById("subSidebar_"+num).style.border = "1px solid #919191";
 }
 
 // 서브 사이드바 전체 닫기
 function closeSubSidebar() {
-    closeSubSidebar_1();
-    closeSubSidebar_2();
+    for(var i = 1; i < 4; i++) {
+        document.getElementById("subSidebar_"+i).style.width = "0";
+        document.getElementById("subSidebar_"+i).style.border = "none";
+    }
 }
 
 //체크박스 함수

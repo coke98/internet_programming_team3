@@ -106,53 +106,53 @@ body {
 
 .siren_btn {
     position: absolute;
-    top: 220px;
+    bottom: 220px;
     right: 30px;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     overflow: hidden;
     z-index: 1;
     background-color: #f5f5f5;
 }
 
 .siren_btn span img {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     padding: 8px 0;
     border: none;
 }
 
 .call_btn {
     position: absolute;
-    top: 270px;
+    bottom: 160px;
     right: 30px;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     overflow: hidden;
     z-index: 1;
     background-color: #f5f5f5;
 }
 .call_btn span img {
-    width: 20px;
-    height: 20px;
-    padding: 8px 0;
+    width: 30px;
+    height: 30px;
+    padding: 9px 0;
     border: none;
 }
 
 .sms_btn {
     position: absolute;
-    top: 320px;
+    bottom: 100px;
     right: 30px;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     overflow: hidden;
     z-index: 1;
     background-color: #f5f5f5;
 }
 .sms_btn span img {
-    width: 20px;
-    height: 20px;
-    padding: 8px 0;
+    width: 30px;
+    height: 30px;
+    padding: 9px 0;
     border: none;
 }
 
@@ -172,11 +172,11 @@ body {
     background-color: white;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 20px;
     border: 1px solid #919191;
   }
   
-  #sidebar a, .subSidebar a, .subSidebar p{
+    .subSidebar a, .subSidebar p{
     padding: 8px 8px 8px 12px;
     text-decoration: none;
     font-size: 25px;
@@ -184,29 +184,47 @@ body {
     display: block;
     transition: 0.3s;
   }
-  
-  #sidebar a:hover {
-    color: #f1f1f1;
-  }
-  #sidebar .menu:hover{
+ 
+
+  .sidebar_close_btn{
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: rgb(34,204,140);
+    cursor: pointer;
+}
+.menu {
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(34,204,140);
+    cursor: pointer;
+}
+
+.menu img {
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+}
+.menu:hover{
     background: rgb(34, 204, 140);
-  }
-  
-  .sidebar_close_btn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 40px;
-    margin-left: 50px;
-  }
-  
+    color: white;
+}
+
   .subSidebar {
     height: 100%;
     width: 0px;
     position: fixed;
     z-index: 1;
     top: 0;
-    left: 135px;
+    left: 70px;
     background-color: white;
     overflow-x: hidden;
     transition: 0.5s;

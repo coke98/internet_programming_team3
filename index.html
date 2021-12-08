@@ -40,6 +40,7 @@
 				alt="확대"></span>
 		<span onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png"
 				alt="축소"></span>
+		<hr>
 	</div>
 
 	<!-- 사이렌 소리 버튼 -->
@@ -60,12 +61,32 @@
 
 	<!-- 사이드 바 -->
 	<nav>
-		<div id="sidebar"> <a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
+		<div id="sidebar"> <div class="sidebar_close_btn" onclick="closeSidebar()">&times;</div>
 			<div class="contents">
-				<a href="#" class="menu" onclick="openSubSidebar_1()" >길 찾기</a>
-				<a href="#" class="menu" onclick="openSubSidebar_2()" >마커 선택</a>
-				<a href="#" class="menu" onclick="openSubSidebar_3()"></a>
-				<a href="#" class="menu"></a>
+				<div class="menu" onclick="openSubSidebar(1)"
+					onmouseover="this.children[0].src='assets/findway_white.png'"
+					onmouseout="this.children[0].src='assets/findway_green.png'">
+					<img src="assets/findway_green.png" alt="길찾기">
+					길찾기
+				</div>
+				<div class="menu" onclick="openSubSidebar(2)"
+					onmouseover="this.children[0].src='assets/marker_white.png'"
+					onmouseout="this.children[0].src='assets/marker_green.png'">
+					<img src="assets/marker_green.png" alt="마커 선택">
+					마커 선택
+				</div>
+				<div class="menu" onclick="openSubSidebar(3)"
+					onmouseover="this.children[0].src='assets/bookmark_white.png'"
+					onmouseout="this.children[0].src='assets/bookmark_green.png'">
+					<img src="assets/bookmark_green.png" alt="이전 기록">
+					이전 기록
+				</div>
+				<div class="menu" onclick="openSubSidebar(4)"
+					onmouseover="this.children[0].src='assets/more_white.png'"
+					onmouseout="this.children[0].src='assets/more_green.png'">
+					<img src="assets/more_green.png" alt="더보기">
+					더보기
+				</div>
 			</div>
 		</div>
 		<div id ="subSidebar_1" class ="subSidebar">
@@ -273,6 +294,19 @@
 								break;
 							}
 						}
+						
+						// 선택된 마커와 좌표가 같은 경유지 표시 마커가 있다면 삭제
+						// (경유지 마커가 아닌 시설물 마커를 눌러 경유지를 지우는 경우에 해당)
+						for(var j = 0; j < waypoint_marker.length; j++) {
+							// 소수점 7자리 이후로 시설물과 경유지 마커의 경도 좌표가 미세하게 다른 문제 발생
+							// waypoint_marker의 경도 좌표에서 소수점 7자리까지만 사용하여 비교
+							if(waypoint_marker[j].getPosition().getLat() == markerPosition.getLat() 
+								&& waypoint_marker[j].getPosition().getLng().toFixed(7) == markerPosition.getLng()) {
+								deleteWaypointMarker(waypoint_marker[j]);
+								break;
+							}
+						}
+
 						setWaypointToString();
 						pedestrian_route(start, end, map);
                         return ;
