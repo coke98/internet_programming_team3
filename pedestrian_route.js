@@ -1,14 +1,5 @@
-// 사용하고자하는 지도 html 파일과 같은 폴더에 두시고 body에 아래 코드를 추가하시면 됩니다.
-// <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b7144d6b822440c89d5008ebeb3fd17"></script>
-// <script src="pedestrian_route.js"></script>
-
-// person_route(출발지, 도착지, 지도 객체) 형식으로 호출하면 됩니다.
-// 출발지 도착지는 카카오맵 객체를 사용합니다.
-// ex) var start = new kakao.maps.LatLng(35.13367784973298, 129.1049204111099);
-
 function pedestrian_route(s, e, m) {
 
-    // ----경유지 구현 추가된 부분------
     // 기존 경로가 있다면 지우기
     if (polyline != null) {
         polyline.setMap(null);
@@ -38,7 +29,6 @@ function pedestrian_route(s, e, m) {
             "endName": "도착지"
         })
     }
-    // ----경유지 구현 추가된 부분------
 
     // 출발지, 도착지 마커 표시 
     var startMarker = new kakao.maps.Marker({
@@ -123,9 +113,101 @@ function pedestrian_route(s, e, m) {
 
             // 지도 중심좌표 변경
             var bounds = new kakao.maps.LatLngBounds();
-            bounds.extend(s);
-            bounds.extend(e);
-            m.setBounds(bounds);
+            
+            //경유지 선택 중일 땐 중심 좌표가 안바뀌도록
+            if(passList.length == 0){
+                bounds.extend(s);
+                bounds.extend(e);
+                m.setBounds(bounds);
+            }
 
         });
 }
+
+
+
+function setWaypoint(check, i, markerPosition, marker) {
+    //이미 클릭된 마커면 선택 취소
+    if(check[i]) {
+        check[i] = false;
+        // passList 에서 markerPosition 과 같은 값을 찾아서 삭제
+        for(var j = 0; j < passList.length; j++) {
+            if(passList[j] == markerPosition) {
+                passList.splice(j, 1);
+                break;
+            }
+        }
+        
+        // 선택된 마커와 좌표가 같은 경유지 표시 마커가 있다면 삭제
+        // (경유지 마커가 아닌 시설물 마커를 눌러 경유지를 지우는 경우에 해당)
+        for(var j = 0; j < waypoint_marker.length; j++) {
+            // 소수점 7자리 이후로 시설물과 경유지 마커의 경도 좌표가 미세하게 다른 문제 발생
+            // waypoint_marker의 경도 좌표에서 소수점 7자리까지만 사용하여 비교
+            if(waypoint_marker[j].getPosition().getLat() == markerPosition.getLat() 
+                && waypoint_marker[j].getPosition().getLng().toFixed(7) == markerPosition.getLng()) {
+                deleteWaypointMarker(waypoint_marker[j]);
+                break;
+            }
+        }
+
+        setWaypointToString();
+        pedestrian_route(start, end, map);
+        return ;
+    }
+
+    if(passList.length == 5){
+        alert("마커를 5개 이상 선택하였습니다.");
+        return ;
+    }
+    else {
+        check[i] = true;
+        passList.push(markerPosition);
+        insertWayPointMarker(check, i, markerPosition ,marker);
+        setWaypointToString();
+        pedestrian_route(start, end, map);
+    }
+}
+
+// 경유지 마커 삽입 함수
+function insertWayPointMarker(check, i, markerPosition, original_marker) {
+    var marker = new kakao.maps.Marker({
+        position: markerPosition,
+        map: map,
+        image: waypoint_markerImage[passList.length],
+        clickable: true
+    });
+    waypoint_marker.push(marker);
+    // 경유지 마커 클릭시 삭제
+    kakao.maps.event.addListener(marker, 'click', function () {
+        deleteWaypointMarker(marker);
+        setWaypoint(check, i, markerPosition, original_marker);
+    });
+}
+
+// 경유지 마커 삭제 함수
+function deleteWaypointMarker(marker) {
+    marker.setMap(null);
+    var i = waypoint_marker.indexOf(marker);
+    waypoint_marker.splice(i, 1);
+    //해당 marker 뒤 경로 마커들 이미지 당기기
+    for (var j = i; j < waypoint_marker.length; j++) {
+        waypoint_marker[j].setImage(waypoint_markerImage[++i]);
+    }
+}
+
+// PassList 를 문자열로 변환하여 전역변수 passListString에 저장하는 함수
+function setWaypointToString() {
+    // passList의 경도, 위도는 "," 각 좌표끼리는 _로 구분하여 string으로 변환
+    passListString = "";
+    for (var i = 0; i < passList.length; i++) {
+        passListString += passList[i].La + "," + passList[i].Ma + "_";
+    }
+    passListString = passListString.substring(0, passListString.length - 1);
+}
+
+function mouseClickListener(check, i, markerPosition, marker){
+    return function(){
+        setWaypoint(check, i, markerPosition, marker);
+    };
+}
+

@@ -205,3 +205,58 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
+
+// 출발지를 버튼으로 입력받습니다.
+function coordtostr() {
+    var startnm = document.getElementById('placenm')
+    var startX = document.getElementById('coordinateX')
+    var startY = document.getElementById('coordinateY')
+    strnm.innerText = "출발지 : " + startnm.innerText
+    strX.innerText = startX.innerText
+    strY.innerText = startY.innerText
+    console.log(startnm)
+    console.log(startX)
+    console.log(startY)
+};
+
+// 도착지를 버튼으로 입력받습니다.
+function coordtodst() {
+    var endnm = document.getElementById('placenm')
+    var endX = document.getElementById('coordinateX')
+    var endY = document.getElementById('coordinateY')
+    dstnm.innerText = "도착지 : " + endnm.innerText
+    dstX.innerText = endX.innerText
+    dstY.innerText = endY.innerText
+    console.log(endnm)
+    console.log(endX)
+    console.log(endY)
+};
+
+//현재 위치를 경로의 출발지 혹은 도착지로 설정합니다.
+function current_locationToPath(flag) {
+    //현재 위치 표시와 동시에 좌표 받아오기 
+    var latlng = current_location();
+    
+    //flag == true면 출발지로 설정
+    if(flag){
+        strnm.innerText = "출발지 : 현재 위치";
+        strX.innerText = latlng.La;
+        strY.innerText = latlng.Ma;
+    }
+    else {
+        dstnm.innerText = "도착지 : 현재 위치";
+        dstX.innerText = latlng.La;
+        dstY.innerText = latlng.Ma;
+    }
+}
+
+// 길찾기 시작
+function letpede() {
+    //키워드 검색으로 찾은 마커 지우기
+    removeMarker();
+
+    start = new kakao.maps.LatLng(strY.innerText, strX.innerText)
+    end = new kakao.maps.LatLng(dstY.innerText, dstX.innerText);
+    map = map;
+    pedestrian_route(start, end, map);
+};
