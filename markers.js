@@ -857,3 +857,16 @@ function getEmergencyRoom(){
             }
         }
 } 
+
+
+// 마커 마우스 이벤트 함수
+function mouseOverListener(map, marker, infoWindow) {
+    return function () {
+        infoWindow.open(map, marker);
+    };
+}
+function mouseOutListener(infoWindow) {
+    return function () {
+        infoWindow.close();
+    };
+}

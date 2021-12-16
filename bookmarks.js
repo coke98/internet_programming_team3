@@ -29,7 +29,6 @@ function get_path() {
     if(passListString != '') {
         passList = passListString.split(",");
     }
-
     alert('경로를 불러옵니다.');
 
     // 경로 안내 적용

@@ -1,3 +1,6 @@
+// 검색된 장소들의 마커를 저장
+var markers = [];
+
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
