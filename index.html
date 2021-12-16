@@ -16,8 +16,9 @@
 	<script src="markers.js"></script>
 	<script src="buttons.js"></script>
 	<script src="pathsearch.js"></script>
+	<script src="bookmarks.js"></script>
 	<!-- API -->
-	<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7b7144d6b822440c89d5008ebeb3fd17"></script>
+	<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=3ceca068ecbe0011266ba2a89b46f421"></script>
 	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2530315e93e47fca95bcdf52cafb039d&libraries=clusterer,services"></script>
 </head>
 
@@ -40,27 +41,27 @@
 
 	<!-- 지도 확대 축소 버튼 -->
 	<div class="custom_control zoom_btn radius_border">
-		<span onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png"
+		<span onclick="zoomIn()"><img src="assets/icon_plus.png"
 				alt="확대"></span>
-		<span onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png"
+		<span onclick="zoomOut()"><img src="assets/icon_minus.png"
 				alt="축소"></span>
 		<hr>
 	</div>
 
 	<!-- 사이렌 소리 버튼 -->
 	<div class="custom_control siren_btn radius_border">
-		<span onclick="siren()"><img src="https://cdn-icons-png.flaticon.com/512/763/763421.png" alt="사이렌"></span>
+		<span onclick="siren()"><img src="assets/siren.png" alt="사이렌"></span>
 		<audio id="siren" src="assets/siren.wav"></audio>
 	</div>
 
     <!--전화-->
 	<div class="custom_control call_btn radius_border">
-		<span onclick="call()"><img src="https://w7.pngwing.com/pngs/811/53/png-transparent-phone-contact-icon-logo-iphone-computer-icons-telephone-call-phone-icon-electronics-text-grass-thumbnail.png" alt="전화"></span>
+		<span onclick="call()"><img src="assets/call.png" alt="전화"></span>
 	</div>
 
 	<!--문자-->
 	<div class="custom_control sms_btn radius_border">
-		<span onclick="sms()"><img src="https://d29fhpw069ctt2.cloudfront.net/icon/image/38198/preview.svg" alt="문자"></span>
+		<span onclick="sms()"><img src="assets/mail.svg" alt="문자"></span>
 	</div>
 
 	<!-- 사이드 바 -->
@@ -82,14 +83,14 @@
 				<div class="menu" onclick="openSubSidebar(3)"
 					onmouseover="this.children[0].src='assets/bookmark_white.png'"
 					onmouseout="this.children[0].src='assets/bookmark_green.png'">
-					<img src="assets/bookmark_green.png" alt="이전 기록">
-					이전 기록
+					<img src="assets/bookmark_green.png" alt="즐겨찾기">
+					즐겨찾기
 				</div>
 				<div class="menu" onclick="openSubSidebar(4)"
 					onmouseover="this.children[0].src='assets/call_white.png'"
 					onmouseout="this.children[0].src='assets/call_green.png'">
-					<img src="assets/call_green.png" alt="더보기">
-					더보기
+					<img src="assets/call_green.png" alt="전화/문자">
+					전화/문자
 				</div>
 				<div class="menu" onclick="openSubSidebar(5)"
 					onmouseover="this.children[0].src='assets/more_white.png'"
@@ -102,24 +103,25 @@
 
 		<div id ="subSidebar_1" class ="subSidebar">
 
-			<div class="contents" style="padding-left: 15px;">
+			<div class="contents">
 				
 				<div style="width: 100%; height: 30px;">
 					<a href="#" class="sidebar_close_btn" onclick="closeSidebar()" style="float:right">&times;</a>
 				</div>
 
 				<br>
-				<div id="menu_wrap" class="bg_white">
+				<div id="menu_wrap" class="bg_white" style="width: 270px; padding: 6px">
 					<div class="option">
 						<div>
 							<!--키워드를 받아올 form-->
-							<form>
+							<div>
 								<b style="font-size: 20px; color:rgb(43, 203, 140);">키워드</b> : 
-								<input type="text" placeholder="검색 할 키워드 ex.부경대학교" id="keyword" size="18"> 
-							</form>
+								<!--키워드를 받아올 input태그-->
+								<input type="text" placeholder="검색 할 키워드 ex.부경대학교" id="keyword" size="18">
+							</div>
 							<br>
 							<!--키워드 검색을 실행할 submit 버튼-->
-							<button type="submit" class="searchbutton" onclick="searchPlaces(); return false;">검색하기</button>
+							<button type="button" class="searchbutton" onclick="searchPlaces(); return false;">검색하기</button>
 							<!--경유지 선택 버튼-->
 							<button type="button" class="searchbutton" onclick="selectMarkers(true); return false;">경유지</button>
 							<!--길찾기를 실행할 버튼-->
@@ -142,12 +144,12 @@
 					<br>
 	
 					<!--경로에 따른 거리 및 시간-->
-					<div id="default_route" style="font-size: 12px;">기존 경로 시간, 거리 안내</div>
-					<div id="optional_route"style="font-size: 12px;">추가 경로 시간, 거리 안내</div>
+					<div id="default_route" style="font-size: 12px;color: rgb(43, 203, 140);">기존 경로 시간, 거리 안내</div>
+					<div id="optional_route"style="font-size: 12px;color: rgb(43, 203, 140);">추가 경로 시간, 거리 안내</div>
 	
 	
 	
-					<hr>
+					<hr style="background-color: rgb(43, 203, 140);">
 	
 					<!--검색으로 받아온 Element 리스트-->
 					<ul id="placesList"></ul>
@@ -191,16 +193,21 @@
 				<a href="#" class="sidebar_close_btn" onclick="closeSidebar()">&times;</a>
 				<div id="menu_wrap" class="bg_white" style="padding-left: 15px;">
 				<b style="font-size: 20px; color:rgb(43, 203, 140);">즐겨찾기</b><br><br>
-				<button type="submit" class="cookiebutton" onclick="ShowCookie(); return true;">즐겨찾기 보기</button>
-				<button type="submit" class="cookiebutton" onclick="delCookie(); return true;">즐겨찾기 삭제</button>
+				<button type="button" class="searchbutton" onclick="save_path(); return false;">저장하기</button>
+				<button type="button" class="searchbutton" onclick="get_path(); return false;">불러오기</button>
  				<br><br>
- 				<b style="font-size: 20px; color:rgb(43, 203, 140);">저장된 즐겨찾기</b><br>
-			<div id="strnm" style="font: size 14px; font-weight: bold; color: rgb(43, 203, 140);">
-							출발지 : 
-						</div>
-						<div id="dstnm" style="font: size 14px; font-weight: bold; color: rgb(43, 203, 140);">
-							도착지 : 
-						</div>
+				<hr style="background-color: rgb(43, 203, 140);">
+				<br>
+ 				<b style="font-size: 20px; color:rgb(43, 203, 140); margin-bottom: 10px;">저장된 경로 정보</b>
+				<br>
+				<br>
+				<div id="Session_str" style="font: size 14px; color: rgb(43, 203, 140);">
+					<b>출발지 : </b>
+				</div>
+				<br>
+				<div id="Session_dst" style="font: size 14px; color: rgb(43, 203, 140);">
+					<b>도착지 : </b>
+				</div>
 		</div>
 		
 		<!-- 비상연락처 서브사이드바  -->
@@ -210,24 +217,24 @@
 				<div id="menu_wrap" class="bg_white" style="padding-left: 15px;">
 				<!-- 비상 연락처 설정 -->
 				<form class="pathsearch">
-					<div style="float: left; margin-bottom: 5px;">
+					<div style="float: left; margin-bottom: 5px;color: rgb(43, 203, 140);">
 						비상전화<br>
-						<img src="https://cdn.discordapp.com/attachments/752108988719562776/912587994039455774/2.png">
+						<img src="assets/dot.png">
 						<input type="tel" 
 								id="callnumb" name="callnumb" 
 								value="112">
 					</div>
-					<div style="float: left; margin-bottom: 5px;">
+					<div style="float: left; margin-bottom: 5px;color: rgb(43, 203, 140);">
 						비상문자<br>
-						<img src="https://cdn.discordapp.com/attachments/752108988719562776/912587994039455774/2.png">
+						<img src="assets/dot.png">
 						<input type="tel"
 								id="smsnumb" name="smsnumb" 
 								value="010-0000-0000">
 					</div>
-					<div style="float: left;">
+					<div style="float: left;color: rgb(43, 203, 140);">
 						문자내용<br>
-						<div style="float: left; margin-right: 5px;">
-							<img src="https://cdn.discordapp.com/attachments/752108988719562776/912587994039455774/2.png">
+						<div style="float: left; margin-right: 5px;color: rgb(43, 203, 140);">
+							<img src="assets/dot.png">
 						</div>
 						<div style="float: right;">
 							<textarea rows="3" cols="30" id="smscont" name="smscont">안심귀가 서비스 비상문자입니다</textarea>
@@ -248,30 +255,30 @@
 				<hr style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px;">
 				<!--사용된 api 정보를 summary와 list로 표기-->
 				<details>
-					<summary style="color:rgb(100, 100, 100); list-style:none; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">데이터 정보</summary>
+					<summary style="color:rgb(43, 203, 140); list-style:none; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">데이터 정보 ▼</summary>
 					<ul>
 						<li style="list-style:none">
 							<a href="https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15013094">CCTV</a>
 						</li>
 						<li style="list-style:none">
-							<a href="">비상벨</a>
+							<a href="https://www.data.go.kr/data/15028206/standard.do">비상벨</a>
 						</li>
 						<li style="list-style:none">
-							<a href="">경찰서</a>
+							<a href="https://www.data.go.kr/tcs/dss/selectFileDataDetailView.do?publicDataPk=15054711">경찰서</a>
 						</li>
 						<li style="list-style:none">
-							<a href="">소방서</a>
+							<a href="https://www.data.go.kr/data/15048243/fileData.do#/tab-layer-openapi">소방서</a>
 						</li>
 						<li style="list-style:none">
-							<a href="">응급실</a>
+							<a href="https://www.data.go.kr/data/15000563/openapi.do">응급실</a>
 						</li>
 						<li style="list-style:none">
-							<a href="">가로등</a>
+							<a href="https://www.data.go.kr/data/15017320/standard.do">가로등</a>
 						</li>
 					</ul>
 				</details>
 				<details>
-					<summary style="color:rgb(100, 100, 100); list-style:none; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">개발팀</summary>
+					<summary style="color:rgb(43, 203, 140); list-style:none; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">개발팀 ▼</summary>
 					<ul>
 						<li style="list-style:none">
 							박홍정
@@ -336,19 +343,29 @@
 
 	<script>
 
-        var markers = [];
+		// 마커 정보를 불러올 객체 생성
+		var markers = [];        
+		/*
+		mode == 0 이면 기본 모드
+		mode == 1 이면 길찾기 모드
+		경유지 선택과 마커 선택에서 클릭 이벤트 충돌을 막기 위해 구분
+		*/
+        var mode;
 
         // 출발지와 도착지 객체 생성
         var start = new kakao.maps.LatLng(35.13367784973298, 129.1049204111099);
         var strnm = document.getElementById('strnm');
+			strnm.innerText = sessionStorage.getItem("strnm");
         var strX = document.getElementById('strX');
         var strY = document.getElementById('strY');
 
         var end = new kakao.maps.LatLng(35.132568, 129.091948);
-        var dstnm = document.getElementById('dstnm')
-        var dstX = document.getElementById('dstX')
-        var dstY = document.getElementById('dstY')
+        var dstnm = document.getElementById('dstnm');
+			dstnm.innerText = sessionStorage.getItem("dstnm");
+        var dstX = document.getElementById('dstX');
+        var dstY = document.getElementById('dstY');
 
+		
 		// 지도 표시
 		var mapContainer = document.getElementById("map"); // 지도를 표시할 div
 		var mapOption = {

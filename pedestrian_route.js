@@ -4,6 +4,14 @@ function pedestrian_route(s, e, m) {
     if (polyline != null) {
         polyline.setMap(null);
     }
+    // 기존 도착지가 있다면 지우기
+    if (startMarker != null) {
+        startMarker.setMap(null);
+    }
+    // 기존 출발지가 있다면 지우기
+    if (endMarker != null) {
+        endMarker.setMap(null);
+    }
 
     if (passList.length == 0) {
         var request = JSON.stringify({
@@ -205,6 +213,7 @@ function setWaypointToString() {
     passListString = passListString.substring(0, passListString.length - 1);
 }
 
+//마커 클릭 이벤트 리스너, 경유지 선택에 사용된다.
 function mouseClickListener(check, i, markerPosition, marker){
     return function(){
         setWaypoint(check, i, markerPosition, marker);

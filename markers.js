@@ -36,7 +36,9 @@ function getCCTV() {
                 });
                 
                 //마커에 클릭 이벤트 등록
-                kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+                //길찾기 모드에서만 클릭되도록
+                if(mode == 1)
+                    kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
 
 
                 // 마커 이벤트리스너 등록
@@ -71,7 +73,9 @@ function getCCTV() {
                 });
 
                 //마커에 클릭 이벤트 등록
-                kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, markerPosition, marker));
+                //길찾기 모드에서만 클릭되도록
+                if(mode == 1)
+                    kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, markerPosition, marker));
 
                 // 마커 이벤트리스너 등록
 				kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
@@ -142,7 +146,9 @@ function getEmergencyBell(){
                         });
 
                         //마커에 클릭 이벤트 등록
-                        kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+                        //길찾기 모드에서만 클릭되도록
+                        if(mode == 1)
+                            kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
             
                         //인포윈도우 생성
                         var infoWindow = new kakao.maps.InfoWindow({
@@ -207,7 +213,7 @@ function getPolice(){
 
 
             //길찾기 중일 때만 마커에 클릭 이벤트 등록
-            if(isPathSerch)
+            if(mode == 1)
                 kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, markerPosition, marker));
 
             var infoWindow = new kakao.maps.InfoWindow({
@@ -233,11 +239,9 @@ function getPolice(){
 function getfireStation(){
     display_loading()
     //소방관 이미지
-    var imgSrc = 'assets/firefighter.png', 
-    //마커 이미지의 크기
-    imgSize = new kakao.maps.Size(40, 40), 
-    //마커 이미지의 옵션, 손가락 끝이 해당 좌표를 가리키도록 위치시켰습니다. 
-    imgOption = {offset: new kakao.maps.Point(30, 10)}; 
+    var FireImage = new kakao.maps.MarkerImage('assets/firefighter.png', new kakao.maps.Size(40, 40));
+    //클릭됐는지 확인하는 배열
+    var check = [];
 
         // [소방청] 시,도 소방서 현황 API
 		const FSurl = "https://api.odcloud.kr/api/15048243/v1/uddi:818f12a7-70c1-4aff-81a0-80d5db5be9fb?page=1&perPage=224&serviceKey=Jo1AQOE7RUfRc1B3Fht8golmSCwwMUfudzPV9355fMjSZwkGh0N3AL2IFLM7ER73nlcOID4V%2FxJK3mOmCDv5YA%3D%3D"
@@ -272,18 +276,20 @@ function getfireStation(){
                 // async-await
                 (async () => {
                         var markers = [];
-                        var markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOption);
                         for(const address of list) {
                             if(address == ""||address == null) continue;
                             const result = await addressSearch(address); // 비동기 함수를 동기 함수처럼 사용하기 위해 await 사용
+                            var coordinate = new kakao.maps.LatLng(result.lat, result.lng);
                             var marker = new kakao.maps.Marker({
 								map: map,
-								position: new kakao.maps.LatLng(result.lat, result.lng),
-                                image: markerImage,
+								position: coordinate,
+                                image: FireImage,
                                 clickable: true,
 							});
                             // 마커에 클릭 이벤트 등록
-                            // kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, markerPosition, marker));
+                            //길찾기 모드에서만 클릭되도록
+                            if(mode == 1)
+                                kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
 
 							// 마커 추가
 							markers.push(marker);
@@ -334,7 +340,8 @@ function getLamp(){
                     });
 
                     //길찾기 중일 때만 마커에 클릭 이벤트 등록
-                    kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+                    if(mode == 1)
+                        kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
 
                     // 마커 이벤트리스너 등록
                     kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
@@ -365,7 +372,8 @@ function getLamp(){
                     });
 
                     //길찾기 중일 때만 마커에 클릭 이벤트 등록
-                    kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+                    if(mode == 1)
+                        kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
 
                     // 마커 이벤트리스너 등록
                     kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
@@ -381,7 +389,6 @@ function getLamp(){
             
             
 }
-
 
 //편의점 api
 function getConvenience(){
@@ -413,12 +420,12 @@ function getConvenience(){
     var check = [];
 
     //구 마다 24시간 영업 가게 받아오기
-    for (var j = 0; j < queryValue.length; j++){
+    for (var j = 0; j < queryValue.length - 1; j++){
 
         //네이버 지역 검색 api
-        const Url = 'https://cors-jhs.herokuapp.com/https://openapi.naver.com/v1/search/local?query=' + queryValue[j] + '&display=5';
+        var Url = 'https://cors-jhs.herokuapp.com/https://openapi.naver.com/v1/search/local?query=' + queryValue[j] + '&display=5';
         //인증 키 옵션
-        const option = {
+        var option = {
             headers: {
                 'X-Naver-Client-Id': 'j0kd93tIdsYa1f7hPr2_',
                 'X-Naver-Client-Secret': 'XKCwNmbKPv',
@@ -481,23 +488,98 @@ function getConvenience(){
                         kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
             
                         //마커에 클릭 이벤트 등록
-                        kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+                        if(mode == 1)
+                            kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
 
                         // 마커 추가
                         markers.push(marker);
                         
                     }
-                    clusterer.addMarkers(markers);
-            })();
-            //마지막 검색 키워드라면 
-            if(j == queryValue.length - 1){
-                convenience_markers = markers; //전체 마커에 추가
+                    
                 clusterer.addMarkers(markers); //클러스터 추가
-            }
+            })();
         })
-        
-        vanish_loading();
     }
+
+    //비동기 호출의 문제로 클러스터 적용을 위해 마지막 배열값은 따로 호출
+    //네이버 지역 검색 api
+    var Url = 'https://cors-jhs.herokuapp.com/https://openapi.naver.com/v1/search/local?query=' + queryValue[15] + '&display=5';
+    //인증 키 옵션
+    var option = {
+        headers: {
+            'X-Naver-Client-Id': 'j0kd93tIdsYa1f7hPr2_',
+            'X-Naver-Client-Secret': 'XKCwNmbKPv',
+        },
+    };
+
+    //호출
+    fetch(Url, option)
+        .then((res) => res.json())
+        .then((resJson) => {
+            var items = resJson.items;
+
+            //주소를 저장할 배열
+            var addressList = [];
+            //가게명을 저장할 배열
+            var titleList = [];
+
+            //주소와 가게명 받기
+            for (var i = 0; i < items.length; i++) {
+                addressList[i]=items[i].address;
+                titleList[i]=items[i].title;
+            }
+
+            const addressSearch = address => {
+            return new Promise((resolve, reject) => {
+                    //주소를 경도와 위도로 반환하는 함수 호출
+                    geocoder.addressSearch(address, function(result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                            resolve({"lat": result[0].y, "lng": result[0].x});
+                        } else {
+                            reject(status);
+                        }
+                    });
+            });
+        };
+        
+        // async-await
+        (async () => {
+                
+                for(var i = 0; i < addressList.length; i++) {
+                    if(addressList[i] == ""||addressList[i] == null) continue;
+                    const result = await addressSearch(addressList[i]); // 비동기 함수를 동기 함수처럼 사용하기 위해 await 사용
+                    
+                    var coordinate = new kakao.maps.LatLng(result.lat, result.lng);
+                    //마커 생성
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coordinate,
+                        clickable: true,
+                        image: ConvImage,
+                    });
+
+                    var infoWindow = new kakao.maps.InfoWindow({
+                        content: '<div class="info-title">'+titleList[i]+'</div>',// 정보창에 이름 표시
+                    });
+
+
+                    // 마커 이벤트리스너 등록
+                    kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                    kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+        
+                    //마커에 클릭 이벤트 등록
+                    if(mode == 1)
+                        kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+
+                    // 마커 추가
+                    markers.push(marker);
+                    
+                }
+            convenience_markers = markers; //전체 마커에 추가
+            clusterer.addMarkers(markers); //클러스터 추가
+            vanish_loading();  //로딩 화면 닫기
+        })();
+    })
     
 }
 
@@ -532,7 +614,7 @@ function getShop24hr(){
     var check = [];
 
     //검색 키워드를 반복하여 구 마다 24시간 영업 가게 받아오기
-    for (var j = 0; j < queryValue.length; j++){
+    for (var j = 0; j < queryValue.length - 1; j++){
 
         //네이버 지역 검색 api
         const Url = 'https://cors-jhs.herokuapp.com/https://openapi.naver.com/v1/search/local?query=' + queryValue[j] + '&display=5';
@@ -600,23 +682,100 @@ function getShop24hr(){
                         kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
             
                         // 마커에 클릭 이벤트 등록
-                        kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+                        if(mode == 1)
+                            kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
 
                         // 마커 추가
                         markers.push(marker);
                     }
-                    clusterer.addMarkers(markers);
+                    
+                clusterer.addMarkers(markers); //클러스터 추가
             })();
 
-            //마지막 검색 키워드라면 
-            if(j == queryValue.length - 1){
                 shop24hr_markers = markers; //전체 마커에 추가
                 clusterer.addMarkers(markers); //클러스터 추가
-            }
+                vanish_loading();  
+            
         })
-        vanish_loading();  
     }
+    //비동기 호출의 문제로 클러스터 적용을 위해 마지막 배열값은 따로 호출
+    //네이버 지역 검색 api
+    const Url = 'https://cors-jhs.herokuapp.com/https://openapi.naver.com/v1/search/local?query=' + queryValue[15] + '&display=5';
+    //인증 키 옵션
+    const option = {
+        headers: {
+            'X-Naver-Client-Id': 'j0kd93tIdsYa1f7hPr2_',
+            'X-Naver-Client-Secret': 'XKCwNmbKPv',
+        },
+    };
+
+    //호출
+    fetch(Url, option)
+        .then((res) => res.json())
+        .then((resJson) => {
+            var items = resJson.items;
+            
+            //주소를 저장할 배열
+            var addressList = [];
+            //가게명을 저장할 배열
+            var titleList = [];
+
+            //주소와 가게명 받기
+            for (var i = 0; i < items.length; i++) {
+                addressList[i]=items[i].address;
+                titleList[i]=items[i].title;
+            }
+
+            const addressSearch = address => {
+            return new Promise((resolve, reject) => {
+                    //주소를 경도와 위도로 반환하는 함수 호출
+                    geocoder.addressSearch(address, function(result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                            resolve({"lat": result[0].y, "lng": result[0].x});
+                        } else {
+                            reject(status);
+                        }
+                    });
+            });
+        };
         
+        // async-await
+        (async () => {
+                
+                for(var i = 0; i < addressList.length; i++) {
+                    if(addressList[i] == ""||addressList[i] == null) continue;
+                    const result = await addressSearch(addressList[i]); // 비동기 함수를 동기 함수처럼 사용하기 위해 await 사용
+                    
+                    var coordinate = new kakao.maps.LatLng(result.lat, result.lng);
+                    //마커 생성
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coordinate,
+                        clickable: true,
+                        image: ShopImage,
+                    });
+
+                    var infoWindow = new kakao.maps.InfoWindow({
+                        content: '<div class="info-title">'+titleList[i]+'</div>',// 정보창에 이름 표시
+                    });
+
+
+                    // 마커 이벤트리스너 등록
+                    kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                    kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+        
+                    // 마커에 클릭 이벤트 등록
+                    if(mode == 1)
+                        kakao.maps.event.addListener(marker, 'click', mouseClickListener(check, i, coordinate, marker));
+
+                    // 마커 추가
+                    markers.push(marker);
+                }
+                shop24hr_markers = markers; //전체 마커에 추가
+                clusterer.addMarkers(markers); //클러스터 추가
+                vanish_loading();  
+        })();        
+    })
     
 }
 
@@ -693,7 +852,6 @@ function getEmergencyRoom(){
 
                 } else { //문제가 발생했다면
                     alert(request.status);
-                    vanish_loading()
 
             }
             }
