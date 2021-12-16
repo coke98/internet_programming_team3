@@ -26,7 +26,9 @@ function get_path() {
     strnm.innerText = sessionStorage.getItem("strnm");
     dstnm.innerText = sessionStorage.getItem("dstnm");
     passListString = sessionStorage.getItem("passList");
-    passList = passListString.split(",");
+    if(passListString != '') {
+        passList = passListString.split(",");
+    }
 
     alert('경로를 불러옵니다.');
 
