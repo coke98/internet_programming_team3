@@ -1,3 +1,6 @@
+
+// 경로 저장, 불러오기를 위한 스크립트를 작성하였습니다.
+
 // sessionStorage에 경로 정보 저장 (출발지, 도착지, 경유지)
 function save_path() {
     sessionStorage.setItem("start", start); // 출발지

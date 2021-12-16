@@ -1,3 +1,6 @@
+
+// 지도상에 표시되는 안전 시설물 마커와 관련된 코드를 작성하였습니다.
+
 // CCTV API
 const serviceKey_CCTV = "Jo1AQOE7RUfRc1B3Fht8golmSCwwMUfudzPV9355fMjSZwkGh0N3AL2IFLM7ER73nlcOID4V%2FxJK3mOmCDv5YA%3D%3D";
 const CCTV_Url = "https://cors-jhs.herokuapp.com/http://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=" + serviceKey_CCTV + "&numOfRows=100&type=json&institutionNm=";
@@ -13,7 +16,7 @@ function getCCTV() {
     //클릭됐는지 확인하는 배열
     var check = [];
 
-    // fetch를 통해 API 호출
+    // fetch를 통해 CCTV API 호출 (재난현장관리과)
     fetch(CCTV_Url + insttNm_CCTV1)
         .then((res) => res.json())
         .then((resJson) => {
@@ -49,7 +52,7 @@ function getCCTV() {
             }
             clusterer.addMarkers(markers);
         })
-        
+    // fetch를 통해 CCTV API 호출 (남구청)
     fetch(CCTV_Url + insttNm_CCTV2)
         .then((res) => res.json())
         .then((resJson) => {
@@ -88,7 +91,7 @@ function getCCTV() {
         })
 }
 
-//비상벨 API
+//비상벨 API (xml 형식)
 function getEmergencyBell(){
     display_loading()
     //서비스 키
@@ -184,10 +187,10 @@ function getPolice(){
     display_loading()
     //경찰서 이미지
     var imgSrc = 'assets/police.png', 
-        //마커 이미지의 크기
-        imgSize = new kakao.maps.Size(40, 40);
+    //마커 이미지의 크기
+    imgSize = new kakao.maps.Size(40, 40);
 
-    // 지도에 경찰서 표시
+    // fetch를 통해 경찰청 API 호출
     fetch(policeUrl)
     .then((res) => res.json())
     .then((resJson) => {
@@ -246,7 +249,7 @@ function getfireStation(){
         // [소방청] 시,도 소방서 현황 API
 		const FSurl = "https://api.odcloud.kr/api/15048243/v1/uddi:818f12a7-70c1-4aff-81a0-80d5db5be9fb?page=1&perPage=224&serviceKey=Jo1AQOE7RUfRc1B3Fht8golmSCwwMUfudzPV9355fMjSZwkGh0N3AL2IFLM7ER73nlcOID4V%2FxJK3mOmCDv5YA%3D%3D"
 		
-        // 지도에 소방서 표시
+        // fetch를 통해 소방서 API 호출
 		fetch(FSurl)
 			.then((res) => res.json())
 			.then((resJson) => {
@@ -320,7 +323,7 @@ function getLamp(){
     //클릭됐는지 확인하는 배열
     var check = [];
      
-		// 보안등 api의 url으로 호출
+		// fetch를 통해 보안등 API 호출 (남구청)
 		fetch(SecureUrl + instNm1)
 			.then((res) => res.json())
 			.then((resJson) => {
@@ -351,7 +354,7 @@ function getLamp(){
                 clusterer.addMarkers(markers);
             })
 
-
+            // fetch를 통해 보안등 API 호출 (수영구청)
             fetch(SecureUrl + instNm2)
 			.then((res) => res.json())
 			.then((resJson) => {
@@ -390,7 +393,7 @@ function getLamp(){
             
 }
 
-// 편의점 API
+// 편의점 마커 - 네이버 지역 검색 API
 function getConvenience(){
     //요청 변수로 넣을 검색 키워드
     const queryValue = 
@@ -779,7 +782,7 @@ function getShop24hr(){
     
 }
 
-// 응급실 API
+// 응급실 API (XML 형식)
 const serviceKey_emergencyRoom = 'i0omZLilsWQxFd3kY5EnR0GjiK1v%2BbymoppTqZykRtT9hRyM4QCxVyW4gcV%2BczyPKQSAH17efFCAbzELgv0wDA%3D%3D';
 const emergencyRoomUrl = 'https://cors-jhs.herokuapp.com/http://apis.data.go.kr/B552657/ErmctInfoInqireService/getEgytBassInfoInqire?serviceKey=' + serviceKey_emergencyRoom + '&pageNo=15&numOfRows=1000'; 
 		
