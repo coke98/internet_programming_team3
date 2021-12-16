@@ -53,7 +53,6 @@ function siren() {
     }
 }
 
-// buttons.js에 추가
 // 전화걸기
 function call() {
     var callnumb = document.getElementById("callnumb").value

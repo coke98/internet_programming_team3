@@ -6,6 +6,7 @@ var startMarker;
 var endMarker;
 var polyline;
 
+// 보행자 경로를 받아와 지도에 출력하는 함수
 function pedestrian_route(s, e, m) {
 
     // 기존 경로가 있다면 지우기

@@ -157,7 +157,7 @@ function addMarker(position, idx, title) {
     return marker;
 }
 
-// 지도 위에 표시되고 있는 마커를 모두 제거합니다
+// 지도 위에 표시되고 있는 장소 검색용 마커를 모두 제거합니다
 function removeMarker() {
     for ( var i = 0; i < markers.length; i++ ) {
         markers[i].setMap(null);
