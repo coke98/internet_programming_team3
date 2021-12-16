@@ -1,3 +1,6 @@
+var startMarker;
+var endMarker;
+
 function pedestrian_route(s, e, m) {
 
     // 기존 경로가 있다면 지우기
@@ -39,11 +42,11 @@ function pedestrian_route(s, e, m) {
     }
 
     // 출발지, 도착지 마커 표시 
-    var startMarker = new kakao.maps.Marker({
+    startMarker = new kakao.maps.Marker({
         map: m,
         position: s
     });
-    var endMarker = new kakao.maps.Marker({
+    endMarker = new kakao.maps.Marker({
         map: m,
         position: e
     });
