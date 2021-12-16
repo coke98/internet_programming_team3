@@ -1,4 +1,4 @@
-// CCTV api
+// CCTV API
 const serviceKey_CCTV = "Jo1AQOE7RUfRc1B3Fht8golmSCwwMUfudzPV9355fMjSZwkGh0N3AL2IFLM7ER73nlcOID4V%2FxJK3mOmCDv5YA%3D%3D";
 const CCTV_Url = "https://cors-jhs.herokuapp.com/http://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=" + serviceKey_CCTV + "&numOfRows=100&type=json&institutionNm=";
 var insttNm_CCTV1 = "부산광역시%20재난현장관리과"
@@ -13,14 +13,14 @@ function getCCTV() {
     //클릭됐는지 확인하는 배열
     var check = [];
 
-    //호출
+    // fetch를 통해 API 호출
     fetch(CCTV_Url + insttNm_CCTV1)
         .then((res) => res.json())
         .then((resJson) => {
             var items = resJson.response.body.items;
 
             for (var i = 0; i < items.length; i++) {
-                var coordinate = new kakao.maps.LatLng(items[i].latitude, items[i].longitude); // 마커가 표시될 위치
+                var coordinate = new kakao.maps.LatLng(items[i].latitude, items[i].longitude); // 마커가 표시될 위치 객체 생성
                 
                 //마커 생성
                 var marker = new kakao.maps.Marker({
@@ -88,7 +88,7 @@ function getCCTV() {
         })
 }
 
-//비상벨 api
+//비상벨 API
 function getEmergencyBell(){
     display_loading()
     //서비스 키
@@ -304,7 +304,7 @@ function getfireStation(){
             
 }
 
-//보안등 api
+// 보안등 API
 const servKey = "Jo1AQOE7RUfRc1B3Fht8golmSCwwMUfudzPV9355fMjSZwkGh0N3AL2IFLM7ER73nlcOID4V%2FxJK3mOmCDv5YA%3D%3D"
 const instNm1 = "부산광역시%20남구청"
 const instNm2 = "부산광역시%20수영구청"
@@ -390,7 +390,7 @@ function getLamp(){
             
 }
 
-//편의점 api
+// 편의점 API
 function getConvenience(){
     //요청 변수로 넣을 검색 키워드
     const queryValue = 
@@ -584,7 +584,7 @@ function getConvenience(){
 }
 
 
-//24시간 영업 가게 api
+// 24시간 영업 가게 - 네이버 지역 검색 API
 function getShop24hr(){
     //요청 변수로 넣을 검색 키워드
     const queryValue = 
@@ -616,7 +616,7 @@ function getShop24hr(){
     //검색 키워드를 반복하여 구 마다 24시간 영업 가게 받아오기
     for (var j = 0; j < queryValue.length - 1; j++){
 
-        //네이버 지역 검색 api
+        //네이버 지역 검색 API
         const Url = 'https://cors-jhs.herokuapp.com/https://openapi.naver.com/v1/search/local?query=' + queryValue[j] + '&display=5';
         //인증 키 옵션
         const option = {
@@ -779,7 +779,7 @@ function getShop24hr(){
     
 }
 
-//응급실 api
+// 응급실 API
 const serviceKey_emergencyRoom = 'i0omZLilsWQxFd3kY5EnR0GjiK1v%2BbymoppTqZykRtT9hRyM4QCxVyW4gcV%2BczyPKQSAH17efFCAbzELgv0wDA%3D%3D';
 const emergencyRoomUrl = 'https://cors-jhs.herokuapp.com/http://apis.data.go.kr/B552657/ErmctInfoInqireService/getEgytBassInfoInqire?serviceKey=' + serviceKey_emergencyRoom + '&pageNo=15&numOfRows=1000'; 
 		

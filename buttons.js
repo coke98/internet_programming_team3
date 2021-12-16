@@ -1,13 +1,3 @@
-// 사이드바 on, off
-function sidebar_wrap_on() {
-    var sidebar_wrap = document.getElementById("sidebar_wrap");
-    sidebar_wrap.style.display = "block";
-}
-function sidebar_wrap_off() {
-    var sidebar_wrap = document.getElementById("sidebar_wrap");
-    sidebar_wrap.style.display = "none";
-}
-
 // 지도 확대, 축소
 function zoomIn() {
     map.setLevel(map.getLevel() - 1);
@@ -49,7 +39,7 @@ function current_location() {
     return current_latlng;
 }
 
-// 사이렌 소리 toggle
+// 사이렌 소리 on, off
 function siren() {
     var siren = document.getElementById("siren");
     if (siren.paused) {
@@ -60,29 +50,24 @@ function siren() {
     }
 }
 
-// 전화벨 소리
+// buttons.js에 추가
+// 전화걸기
 function call() {
-    location.href = "tel:112";
-}
+    var callnumb = document.getElementById("callnumb").value
+    console.log(callnumb)
+    if (!callnumb) {
+        location.href = "tel:" + 112;
+    }else{
+        location.href = "tel:" + callnumb;
+    }
+    console.log(callnumb)
+};
 
-    // buttons.js에 추가
-    // 전화걸기
-    function call() {
-        var callnumb = document.getElementById("callnumb").value
-        console.log(callnumb)
-        if (!callnumb) {
-            location.href = "tel:" + 112;
-        }else{
-            location.href = "tel:" + callnumb;
-        }
-        console.log(callnumb)
-    };
-
-    // 문자 보내기
-    function sms() {
-        location.href = "tel:" + document.getElementById("callnumb").value;
-        location.href = 'sms:' + document.getElementById("smsnumb").value + '?body=' + document.getElementById("smscont").value
-    };
+// 문자 보내기
+function sms() {
+    location.href = "tel:" + document.getElementById("callnumb").value;
+    location.href = 'sms:' + document.getElementById("smsnumb").value + '?body=' + document.getElementById("smscont").value
+};
 
 // 사이드바 open
 function openSidebar() {
@@ -93,7 +78,9 @@ function openSidebar() {
     }
 }
 
+
 // 사이드바 전체 닫기
+// 사이드바의 width를 0으로 만들어 닫기 구현
 function closeSidebar() {
     var isSubSidebarOpen = false;
 
@@ -101,11 +88,7 @@ function closeSidebar() {
     for (var i = 0; i < subSidebar.length; i++) {
         if (subSidebar[i].style.width != ("0px")) isSubSidebarOpen = true;
     }
-
-    console.log(isSubSidebarOpen);
-
     closeSubSidebar();
-
     if (isSubSidebarOpen) {
         setTimeout(function () {
             document.getElementById("sidebar").style.width = "0";
@@ -116,7 +99,7 @@ function closeSidebar() {
     }
 }
 
-// 서브 사이드바 toggle
+// 서브 사이드바 open
 function openSubSidebar(num) {
     closeSubSidebar();
     document.getElementById("subSidebar_"+num).style.width = "300px";
@@ -131,7 +114,7 @@ function closeSubSidebar() {
     }
 }
 
-//마커 선택 버튼 눌렀을 때 함수
+// 모든 마커 표시
 function selectMarkers(){
     //사이드바를 내리고
     closeSidebar();
@@ -149,9 +132,11 @@ function selectMarkers(){
     }
 }
 
-//체크박스 함수
+// 체크박스에 따라 마커를 표시하는 함수
 function checkBox(obj) {
     var result = obj.value;
+    // 체크 박스가 체크될 경우
+    // 지도에 해당 마커들을 표시
     if (obj.checked) {
         switch (result) {
             case "CCTV":
@@ -179,7 +164,10 @@ function checkBox(obj) {
                 getEmergencyRoom();
                 break;
         }
-    } else {
+    } 
+    // 체크 박스가 체크 해제될 경우
+    // 지도에서 해당 마커들을 제거
+    else {
         switch (result) {
             case "CCTV":
                 for (var i = 0; i < CCTV_markers.length; i++) {

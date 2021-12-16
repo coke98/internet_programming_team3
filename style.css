@@ -1,19 +1,53 @@
+/* 전체 글꼴 */
 body {
     margin: 0;
     padding: 0;
      font-family:'Nanum Gothic Coding', sans-serif;
 }
+
+/* 인트로 화면 */
+#intro {
+    /*그라데이션 배경*/
+    font-family: "Jua";
+    background: #114357;
+    background: -webkit-linear-gradient(to top, #DEF6CD, #C4F1DF);
+    background: linear-gradient(to top, #DEF6CD, #C4F1DF);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /*중앙 정렬*/
+    justify-content: center;
+    align-items: center;
+    /* 절대위치 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*아이템들을 세로 방향으로 배치*/
+    flex-direction: column;
+    z-index: 3;
+}
+
+/* 인트로 화면 로고 */
+.title {
+        margin-bottom: 40px;
+        font-size: 5em;
+        color: white;
+}
+
+/* 둥근 모서리 속성 */
 .radius_border {
     border: 1px solid #919191;
     border-radius: 5px;
 }
 
+/* 버튼 속성 */
 .custom_control span {
     display: block;
     text-align: center;
     cursor: pointer;
 }
 
+/* 현재위치 불러오기 버튼 */
 .gps_btn {
     position: absolute;
     top: 70px;
@@ -31,6 +65,7 @@ body {
     border: none;
 }
 
+/* 사이드바 open 버튼 */
 .sidebar_open_btn {
     position: absolute;
     top: 50px;
@@ -46,17 +81,20 @@ body {
     color:rgb(34, 204, 140);
     font-family: 'Times New Roman', Times, serif;
 }
-.sidebar_open_btn:hover {
-    background:rgb(34, 204, 140);
-    color: white;
-    transition: 0.3s;
-}
 
 .sidebar_open_btn span img {
     margin-top: 2px;
     width: 50px;
     height: 40px;
 }
+
+/* 사이드바 open 버튼 hover시 색상 변경 */
+.sidebar_open_btn:hover {
+    background:rgb(34, 204, 140);
+    color: white;
+    transition: 0.3s;
+}
+
 
 /*마커 선택 확인 버튼*/
 #checkbtn {
@@ -69,6 +107,7 @@ body {
     cursor: pointer;
 }
 
+/* 지도 확대 축소 버튼 */
 .zoom_btn span {
     width: 36px;
     height: 40px;
@@ -98,6 +137,7 @@ body {
     border-bottom: 1px solid #bfbfbf;
 }
 
+/* 사이렌 소리 버튼 */
 .siren_btn {
     position: absolute;
     bottom: 220px;
@@ -116,6 +156,7 @@ body {
     border: none;
 }
 
+/* 전화 걸기 버튼 */
 .call_btn {
     position: absolute;
     bottom: 160px;
@@ -133,6 +174,7 @@ body {
     border: none;
 }
 
+/* 문자 보내기 버튼 */
 .sms_btn {
     position: absolute;
     bottom: 100px;
@@ -150,12 +192,13 @@ body {
     border: none;
 }
 
+/* 지도 속성 */
 #map {
     width: 100%;
     height: 100vh;
 }
 
-
+/* 사이드바 속성 */
 #sidebar {
     height: 100%;
     width: 0px;
@@ -178,7 +221,8 @@ body {
     color:rgb(34, 204, 140);
     font-weight: bold;
 }
-  
+
+/* 서브사이드바 글 속성 */
 .subSidebar a, .subSidebar p{
     padding: 8px 8px 8px 12px;
     text-decoration: none;
@@ -188,7 +232,7 @@ body {
     transition: 0.3s;
   }
  
-
+/* 사이드바 닫기 버튼 */
 .sidebar_close_btn{
     width: 70px;
     height: 70px;
@@ -199,6 +243,7 @@ body {
     cursor: pointer;
 }
 
+/* 사이드바 내 각 메뉴 버튼 */
 .menu {
     width: 70px;
     height: 70px;
@@ -222,6 +267,7 @@ body {
     color: white;
 }
 
+/* 각 메뉴별 서브 사이드바 */
 .subSidebar {
     height: 100%;
     width: 0px;
@@ -235,57 +281,12 @@ body {
     padding-top: 30px;
   }
 
+/* 서브 사이드바 내 컨텐츠 */
 .contents {
     width: 280px;
 }
 
-
-  #intro {
-    /*그라데이션 배경*/
-    font-family: "Jua";
-    background: #114357;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #DEF6CD, #C4F1DF);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #DEF6CD, #C4F1DF);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    /*중앙 정렬*/
-    justify-content: center;
-    align-items: center;
-    /* 절대위치 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    /*아이템들을 세로 방향으로 배치*/
-    flex-direction: column;
-    z-index: 3;
-}
-.title {
-        margin-bottom: 40px;
-        font-size: 5em;
-        color: white;
-    }
-
-
-/*길찾기 Style*/
-.map_wrap, .map_wrap * {
-    margin:0;
-    padding:0;
-    font-family:'Malgun Gothic',dotum,'돋움',sans-serif;
-    font-size:12px;
-}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{
-    color:#000;
-    text-decoration: none;
-}
-.map_wrap {
-    position:relative;
-    width:100%;
-    height:500px;
-}
+/* 서브 사이드바 컨텐츠 내 div영역 */
 #menu_wrap {
     position:relative;
     width:246px;
@@ -295,11 +296,7 @@ body {
     margin: 10px;
     z-index: 1;
     font-size:12px;
-    border-radius: 10px;
-    
-}
-.bg_white {
-    background:#fff;
+    border-radius: 10px; 
 }
 #menu_wrap hr {
     display: block;
@@ -317,6 +314,8 @@ body {
 #menu_wrap .option button {
     margin-left:5px;
 }
+
+/* 장소 검색 리스트 */
 #placesList li {
     list-style: none;
 }
@@ -402,6 +401,8 @@ body {
 #placesList .item .marker_15 {
     background-position: 0 -654px;
 }
+
+/* 페이지 구분 */
 #pagination {
     margin:10px auto;
     text-align: center;
@@ -415,6 +416,8 @@ body {
     cursor: default;
     color:#777;
 }
+
+/* 장소 검색 버튼 */
 .searchbutton {
     background-color: rgb(34, 204, 140);
     color: white;
@@ -430,6 +433,8 @@ body {
 }
 
 
+
+/* 정보 입력창 속성 지정 */
 input[type=text] {
     color: rgb(34, 204, 140);
     border: 2px solid rgb(34, 204, 140);
@@ -448,7 +453,7 @@ input[type=tel]:hover {
     background-color: aliceblue;
 }
 
-
+/* 비상 문자 내용 */
 textarea {
     color: rgb(34, 204, 140);
     border: 2px solid rgb(34, 204, 140);
@@ -461,12 +466,7 @@ textarea:hover {
     background-color: aliceblue;
 }
 
-.emergency_contact {
-    color:rgb(34, 204, 140);
-    float: left;
-    margin-bottom: 5px;
-}
-
+/* 로딩화면 */
 .loading {
     width: 100%;
     height: 100%;
@@ -490,7 +490,7 @@ textarea:hover {
     padding:6px 0;
 }
 
-/*더보기란에 띄우는 로고*/
+/* 더보기 메뉴의 로고 */
 .logoText {
     margin-left: 20px; 
     margin-right: 20px; 
@@ -501,7 +501,4 @@ textarea:hover {
     font-size: 40px;
 }
 
-.searchlist {
-    height: 350px;
-    overflow-y: scroll;
-};
+
