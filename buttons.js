@@ -117,7 +117,8 @@ function closeSubSidebar() {
 }
 
 // 모든 마커 표시
-function selectMarkers(){
+function selectMarkers(m){
+    mode = m;
     //사이드바를 내리고
     closeSidebar();
     //모든 마커 보이기
