@@ -1,7 +1,7 @@
 # Table of contents
 
 * [프로젝트 개요](README.md)
-* [기획 동기](undefined.md)
+* [기획 동기 및 기대 효과](undefined.md)
 
 ## 프로젝트 준비
 
