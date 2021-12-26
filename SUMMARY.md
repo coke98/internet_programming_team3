@@ -19,8 +19,8 @@
       * [PC version](undefined-2/frontend/undefined-1/undefined-1/pc-version.md)
       * [Movile version](undefined-2/frontend/undefined-1/undefined-1/movile-version.md)
     * [로고 결정](undefined-2/frontend/undefined-1/undefined-2.md)
-* [시스템 구조 설계 개요](undefined-2/undefined.md)
-* [API Document](undefined-2/api-document.md)
+* [전체 소스 파일 구성](undefined-2/undefined.md)
+* [API 목록](undefined-3/api.md)
 
 ## ISSUE
 
