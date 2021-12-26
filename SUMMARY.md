@@ -1,26 +1,26 @@
 # Table of contents
 
 * [프로젝트 개요](README.md)
-* [기획 동기](undefined-1.md)
+* [기획 동기](undefined.md)
 
 ## 프로젝트 준비
 
-* [개발 환경 및 팀 구성](undefined-2/undefined.md)
+* [개발 환경 및 팀 구성](undefined-1/undefined.md)
 
 ## 프로젝트 설계
 
-* [FRONTEND 설계 개요](undefined-3/frontend/README.md)
-  * [FRONTEND 화면 흐름 및 동작](undefined-3/frontend/frontend.md)
-  * [콘텐츠 구성](undefined-3/frontend/undefined/README.md)
-    * [Mainpage](undefined-3/frontend/undefined/mainpage.md)
-  * [디자인 설계 의사결정](undefined-3/frontend/undefined-1/README.md)
-    * [디자인 컨셉 및 기능 정의](undefined-3/frontend/undefined-1/undefined.md)
-    * [컴포넌트 디자인](undefined-3/frontend/undefined-1/undefined-1/README.md)
-      * [PC version](undefined-3/frontend/undefined-1/undefined-1/pc-version.md)
-      * [Movile version](undefined-3/frontend/undefined-1/undefined-1/movile-version.md)
-    * [로고 결정](undefined-3/frontend/undefined-1/undefined-2.md)
-* [시스템 구조 설계 개요](undefined-3/undefined.md)
-* [API Document](undefined-3/api-document.md)
+* [FRONTEND 설계 개요](undefined-2/frontend/README.md)
+  * [FRONTEND 화면 흐름 및 동작](undefined-2/frontend/frontend.md)
+  * [콘텐츠 구성](undefined-2/frontend/undefined/README.md)
+    * [Mainpage](undefined-2/frontend/undefined/mainpage.md)
+  * [디자인 설계 의사결정](undefined-2/frontend/undefined-1/README.md)
+    * [디자인 컨셉 및 기능 정의](undefined-2/frontend/undefined-1/undefined.md)
+    * [컴포넌트 디자인](undefined-2/frontend/undefined-1/undefined-1/README.md)
+      * [PC version](undefined-2/frontend/undefined-1/undefined-1/pc-version.md)
+      * [Movile version](undefined-2/frontend/undefined-1/undefined-1/movile-version.md)
+    * [로고 결정](undefined-2/frontend/undefined-1/undefined-2.md)
+* [시스템 구조 설계 개요](undefined-2/undefined.md)
+* [API Document](undefined-2/api-document.md)
 
 ## ISSUE
 
@@ -49,5 +49,5 @@
 
 ## 프로젝트 결과
 
-* [중간 결과 보고](undefined-4/undefined.md)
-* [최종 결과 보고](undefined-4/undefined-1.md)
+* [중간 결과 보고](undefined-3/undefined.md)
+* [최종 결과 보고](undefined-3/undefined-1.md)
