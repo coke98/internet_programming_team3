@@ -24,7 +24,7 @@
 
 ## Issue
 
-* [Cors Error](issue/cors-error.md)
+* [CORS Error](issue/cors-error.md)
 * [Viewport](issue/viewport.md)
 * [GeoCoder](issue/geocoder.md)
 * [BackEnd](issue/backend.md)
