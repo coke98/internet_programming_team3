@@ -18,12 +18,12 @@
 * [전체 소스 파일 구성](undefined-3/undefined-1.md)
 * [API 목록](undefined-3/api.md)
 
-## Issue
+## 개발 과정 중 Issue
 
 * [CORS Error](issue/cors-error.md)
 * [Viewport](issue/viewport.md)
 * [GeoCoder](issue/geocoder.md)
-* [BackEnd](issue/backend.md)
+* [Session Storage](issue/session-storage.md)
 
 ## 프로젝트 개발
 

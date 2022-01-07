@@ -10,7 +10,7 @@
 ![](<../../../.gitbook/assets/palette (1).png>)
 
 * ![](<../../../.gitbook/assets/image (1).png>)#DEF6CD와 ![](<../../../.gitbook/assets/image (2).png>)#C4F1DF 색상으로 그라데이션 효과를 준 인트로 화면을 제작하여 사용자가 웹사이트에 접속했을 때 전체적으로 초록색 계열의 색감이 주는 심리적인 진정을 느낄 수 있도록 합니다.
-* ![](<../../../.gitbook/assets/image (3).png>)#28F4A8과 ![](<../../../.gitbook/assets/image (6) (1).png>)#22CC8C 색상으로 글꼴 및 사이드바 아이콘 색을 작성하였습니다
+* ![](<../../../.gitbook/assets/image (3).png>)#28F4A8과 ![](<../../../.gitbook/assets/image (6) (1) (1).png>)#22CC8C 색상으로 글꼴 및 사이드바 아이콘 색을 작성하였습니다
 
 #### ❑  경로 및 현재 위치 색
 
