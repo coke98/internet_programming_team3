@@ -2,7 +2,7 @@
 
 API 사용 중 다음과 같은 에러를 표시하며 정상적으로 데이터를 불러올 수 없는 경우가 발생했다.&#x20;
 
-![](<../.gitbook/assets/image (4).png>)
+![](<../.gitbook/assets/image (5).png>)
 
 CORS와 관련된 에러를 찾아보니 SOP(Same-Origin Policy)에 의해 동일한 도메인이 아닐 경우, 보안상의 위협을 막기 위해 데이터를 참조할 수 없도록 하였던 것에 이유가 있었다.
 
@@ -18,7 +18,7 @@ CORS와 관련된 에러를 찾아보니 SOP(Same-Origin Policy)에 의해 동�
 
 스프링과 같은 백엔드 서버를 두었을 때, 간단히 CORS 등록을 함으로써 허용을 할 수 있지만, 프론트엔드만을 사용하는 이번 프로젝트에서는 다른 방법이 필요했다.
 
-
+![](<../.gitbook/assets/image (4).png>)
 
 위와 같이 cors-anywhere라는 프록시 서버 소스를 깃허브에 fork하고 heroku서버에 호스팅하여 [https://cors-jhs.herokuapp.com](https://cors-jhs.herokuapp.com) 와 같은 프록시 서버를 개설하였다.
 
