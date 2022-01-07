@@ -23,7 +23,7 @@
 * [CORS Error](issue/cors-error.md)
 * [Viewport](issue/viewport.md)
 * [GeoCoder](issue/geocoder.md)
-* [Session Storage](issue/session-storage.md)
+* [Session Storage](issue/backend.md)
 
 ## 프로젝트 개발
 
