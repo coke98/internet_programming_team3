@@ -4,7 +4,7 @@
 
 
 
-여러 방법 중 우리 프로젝트는 Session storage를 사용하기로 하였다.
+여러 방법 중 우리 프로젝트는 Session Storage를 사용하기로 하였다.
 
 
 
