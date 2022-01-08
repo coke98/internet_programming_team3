@@ -22,11 +22,11 @@ CORS와 관련된 에러를 찾아보니 SOP(Same-Origin Policy)에 의해 동�
 
 위와 같이 cors-anywhere라는 프록시 서버 소스를 깃허브에 fork하고 heroku서버에 호스팅하여 [https://cors-jhs.herokuapp.com](https://cors-jhs.herokuapp.com) 와 같은 프록시 서버를 개설하였다.
 
-&#x20;
 
+
+{% hint style="info" %}
 “[https://cors-jhs.herokuapp.com](https://cors-jhs.herokuapp.com)/참조하고자하는 주소”
-
-&#x20;
+{% endhint %}
 
 의 형식으로 데이터를 호출하면 사이트에 CORS가 허용된 상태로 데이터를 받아오고 이를 우리 사이트 내에서 문제없이 받아올 수 있었다.
 
