@@ -22,7 +22,7 @@
 
 * [CORS Error](issue/cors-error.md)
 * [Viewport](issue/viewport.md)
-* [비동기 호출 관련 문제](issue/undefined.md)
+* [비동기 호출 관련 문제](issue/geocoder.md)
 * [Session Storage](issue/backend.md)
 
 ## 프로젝트 개발
